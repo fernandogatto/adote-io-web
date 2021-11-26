@@ -26,19 +26,12 @@
 > Web application for child adoption.
 
 ## 🔗 Table of contents
-- [API](#api)
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Getting start](#start)
 - [Project](#project)
 - [Contribute](#contribute)
 - [License](#license)
-
-## 📚 API <a name="api"/>
-
-To get the API, follow this [Adote.io API](https://Adote.io-api.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config).
-
-[Click here](https://github.com/dnfetheus/devappcorp-api) to see the API repository.
 
 ## 📌 Technologies <a name="technologies"/>
 
