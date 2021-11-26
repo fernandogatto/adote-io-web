@@ -3,7 +3,7 @@
         alt="Adote.io"
         title="Adote.io"
         src=".github/logo.png"
-        width="300"
+        width="150"
     />
 </h1>
 
@@ -100,4 +100,4 @@ Sign in:
 
 Released in 2021. This project is under the [MIT License](https://choosealicense.com/licenses/mit/).
 
-Build with 💙 by [Fernando Gatto](https://github.com/fernandogatto/) and [Luann Sapucaia](https://github.com/nicolasbicalho).
+Build with 💙 by [Fernando Gatto](https://github.com/fernandogatto/) and [Nicolas Bicalho](https://github.com/nicolasbicalho).
