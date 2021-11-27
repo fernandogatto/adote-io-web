@@ -7,19 +7,18 @@ import {
     Drawer,
     IconButton,
     Button,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import {
-    Timeline,
-    Person,
+    Dashboard,
     ExitToApp,
     Menu as MenuIcon,
     Close,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import { MenuContainer } from './styles';
 
-import LoadingMenu from '../../components/Loadings/LoadingMenu';
+import MenuLoading from '../Loadings/MenuLoading';
 
 import logo from '../../assets/logo.png';
 
@@ -69,32 +68,20 @@ const Menu = () => {
                 </IconButton>
             )}
 
-            {!isLoadingUser &&
+            {/* {!isLoadingUser &&
                 !hasErrorUser &&
                 user &&
-                user.usuario_id !== '' && (
+                user.usuario_id !== '' && ( */}
                     <nav>
                         <NavLink
-                            to="/status-do-alistamento"
+                            to="/dashboard"
                             activeClassName="active"
                         >
-                            <Timeline />
-                            Status do Alistamento
+                            <Dashboard />
+                            Dashboard
                         </NavLink>
-
-                        {user.roles &&
-                            user.roles.length > 0 &&
-                            user.roles.includes('SERVIDOR') && (
-                                <NavLink
-                                    to="/pessoas-fisicas"
-                                    activeClassName="active"
-                                >
-                                    <Person />
-                                    Pessoas Físicas
-                                </NavLink>
-                        )}
                     </nav>
-            )}
+            {/* )} */}
 
             <Button
                 startIcon={<ExitToApp />}
@@ -144,7 +131,7 @@ const Menu = () => {
                 />
             </Box>
 
-            <LoadingMenu
+            <MenuLoading
                 isLoading={isLoadingUser}
                 hasError={hasErrorUser}
                 onPress={getUser}

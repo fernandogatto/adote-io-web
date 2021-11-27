@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton } from '@mui/material';
 
-const LoadingInput = ({ marginTop, marginBottom }) => {
+const InputLoading = ({ marginTop, marginBottom }) => {
     return (
         <Skeleton
             animation="wave"
@@ -17,4 +17,4 @@ const LoadingInput = ({ marginTop, marginBottom }) => {
     )
 }
 
-export default LoadingInput;
+export default InputLoading;

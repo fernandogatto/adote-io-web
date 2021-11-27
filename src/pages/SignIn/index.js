@@ -14,12 +14,12 @@ import {
     IconButton,
     Button,
     CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import {
     Visibility,
     VisibilityOff,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import { ContainerSignIn, SignInBackground } from './styles';
 
@@ -45,6 +45,29 @@ const SignIn = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+      });
+
+      const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+      };
+
+      const handleClickShowPassword = () => {
+        setValues({
+          ...values,
+          showPassword: !values.showPassword,
+        });
+      };
+
+      const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+      };
 
     const handleInputTextChange = (event) => {
         const { name, value } = event.target;
@@ -128,8 +151,8 @@ const SignIn = () => {
                         <OutlinedInput
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
+                            label="Senha *"
                             name="senha"
-                            labelWidth={60}
                             value={inputTextData.senha}
                             onChange={handleInputTextChange}
                             disabled={isSubmitting}
@@ -153,12 +176,6 @@ const SignIn = () => {
                                 </InputAdornment>
                             }
                         />
-
-                        {inputError.senha && (
-                            <FormHelperText>
-                                Campo obrigatório
-                            </FormHelperText>
-                        )}
                     </FormControl>
 
                     <Box mt={2} className="grid-button">

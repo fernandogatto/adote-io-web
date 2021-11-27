@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import { withTheme } from '@material-ui/core/styles';
 
 function bganimation () {
     return keyframes`
@@ -9,7 +8,7 @@ function bganimation () {
     `
 };
 
-export const Container = withTheme(styled.div`
+export const Container = styled.div`
     .section-dialog {
         display: flex;
         align-items: center;
@@ -35,13 +34,13 @@ export const Container = withTheme(styled.div`
             color: ${props => props.theme.palette.error.main};
         }
     }
-`);
+`;
 
-export const DialogTitleContainer = withTheme(styled.div`
+export const DialogTitleContainer = styled.div`
     color: ${props => props.theme.palette.primary.main};
-`);
+`;
 
-export const DialogContentContainer = withTheme(styled.div`
+export const DialogContentContainer = styled.div`
     p {
         color: ${props => props.theme.palette.description.secondary.light};
     }
@@ -54,9 +53,9 @@ export const DialogContentContainer = withTheme(styled.div`
             margin-top: 8px;
         }
     }
-`);
+`;
 
-export const DialogItem = withTheme(styled.div`
+export const DialogItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,9 +104,9 @@ export const DialogItem = withTheme(styled.div`
             align-items: center;
         }
     }
-`);
+`;
 
-export const DialogActionContainer = withTheme(styled.div`
+export const DialogActionContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 
@@ -127,4 +126,4 @@ export const DialogActionContainer = withTheme(styled.div`
             margin-left: -12px;
         }
     }
-`);
+`;

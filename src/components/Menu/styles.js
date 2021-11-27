@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { withTheme  } from '@material-ui/core/styles';
-
-export const MenuContainer = withTheme(styled.div`
+export const MenuContainer = styled.div`
     height: 100vh;
     width: 250px;
     background-color: ${props => props.theme.palette.background.tertiary.main};
@@ -63,7 +61,7 @@ export const MenuContainer = withTheme(styled.div`
 
             &.active {
                 color: ${props => props.theme.palette.primary.main};
-                border-right: 3px solid ${props => props.theme.palette.primary.main};
+                background-color: rgba(33, 187, 247, .15);
             }
 
             svg {
@@ -79,4 +77,4 @@ export const MenuContainer = withTheme(styled.div`
         justify-content: flex-start;
         font-size: 14px;
     }
-`);
+`;

@@ -10,9 +10,9 @@ import {
     IconButton,
     Tooltip,
     Checkbox,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { Add } from '@material-ui/icons';
+import { Add } from '@mui/icons-material';
 
 import {
     Container,
@@ -24,7 +24,7 @@ import {
 
 import HasErrorInput from '../../Errors/HasErrorInput';
 
-import LoadingInput from '../../Loadings/LoadingInput';
+import LoadingInput from '../../Loadings/InputLoading';
 
 const CheckboxDialog = ({
     titleSection,

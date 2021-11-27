@@ -7,9 +7,9 @@ import {
     IconButton,
     Menu,
     MenuItem,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { MoreVert } from '@material-ui/icons';
+import { MoreVert } from '@mui/icons-material';
 
 import { ContainerSidebarBox } from './styles';
 

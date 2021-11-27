@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-import { withTheme } from '@material-ui/core/styles';
-
 import background from '../../assets/sign-in-background.jpg';
 
-export const ContainerSignIn = withTheme(styled.div`
+export const ContainerSignIn = styled.div`
     height: 100vh;
     display: flex;
     align-items: stretch;
@@ -76,7 +74,7 @@ export const ContainerSignIn = withTheme(styled.div`
             }
         }
     }
-`);
+`;
 
 export const SignInBackground = styled.div`
     flex: 1;

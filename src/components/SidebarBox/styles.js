@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { withTheme  } from '@material-ui/core/styles';
-
-export const ContainerSidebarBox = withTheme(styled.div`
+export const ContainerSidebarBox = styled.div`
     width: 100%;
     background-color: ${props => props.theme.palette.background.primary.main};
     padding: 16px;
@@ -38,4 +36,4 @@ export const ContainerSidebarBox = withTheme(styled.div`
             }
         }
     }
-`);
+`;

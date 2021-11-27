@@ -4,15 +4,14 @@ import {
     Box,
     IconButton,
     Typography,
-} from '@material-ui/core';
+    Skeleton,
+} from '@mui/material';
 
-import { Replay } from '@material-ui/icons';
-
-import { Skeleton } from '@material-ui/lab';
+import { Replay } from '@mui/icons-material';
 
 import { Container } from './styles';
 
-const LoadingGridArea = ({
+const GridAreaLoading = ({
     isLoading,
     hasError,
     onPress,
@@ -144,4 +143,4 @@ const LoadingGridArea = ({
     )
 }
 
-export default LoadingGridArea;
+export default GridAreaLoading;

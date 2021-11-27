@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import {withTheme} from '@material-ui/core/styles';
-
-export const Container = withTheme(styled.div`
+export const Container = styled.div`
     .container-grid-area {
         .item-header, .item-main, .item-sidebar, .item-footer {
             background-color: ${props => props.theme.palette.background.primary.main};
@@ -10,4 +8,4 @@ export const Container = withTheme(styled.div`
             padding: 32px 16px 16px;
         }
     }
-`);
+`;

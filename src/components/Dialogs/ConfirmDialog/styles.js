@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 
-import { withTheme } from '@material-ui/core/styles';
-
-export const DialogTitleContainer = withTheme(styled.div`
+export const DialogTitleContainer = styled.div`
     color: ${props => props.theme.palette.primary.main};
-`);
+`;
 
-export const DialogContentContainer = withTheme(styled.div`
+export const DialogContentContainer = styled.div`
     p {
         color: ${props => props.theme.palette.description.secondary.light};
     }
-`);
+`;
 
-export const DialogActionContainer = withTheme(styled.div`
+export const DialogActionContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 
@@ -27,4 +25,4 @@ export const DialogActionContainer = withTheme(styled.div`
             margin-left: -12px;
         }
     }
-`);
+`;

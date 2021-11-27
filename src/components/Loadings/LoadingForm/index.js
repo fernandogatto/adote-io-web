@@ -4,9 +4,9 @@ import {
     Box,
     IconButton,
     Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { Replay } from '@material-ui/icons';
+import { Replay } from '@mui/icons-material';
 
 import { Skeleton } from '@material-ui/lab';
 

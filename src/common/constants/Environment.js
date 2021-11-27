@@ -1,5 +1,5 @@
 const URLS = {
-    baseUrl: `https://emilitar-api.herokuapp.com`,
+    baseUrl: `https://adote-io-api.herokuapp.com`,
 }
 
 export default URLS;

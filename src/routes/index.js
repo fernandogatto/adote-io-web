@@ -15,9 +15,15 @@ const Routes = () => {
         // <Router basename={process.env.PUBLIC_URL}>
         <Router>
             <Switch>
-                <CustomRoute
+                <Route
                     path="/"
                     component={Modules.SignIn}
+                    exact
+                />
+
+                <Route
+                    path="/dashboard"
+                    component={Modules.Dashboard}
                     exact
                 />
             </Switch>

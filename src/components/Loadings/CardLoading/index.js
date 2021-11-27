@@ -4,15 +4,14 @@ import {
     Box,
     IconButton,
     Typography,
-} from '@material-ui/core';
+    Skeleton,
+} from '@mui/material';
 
-import { Replay } from '@material-ui/icons';
-
-import { Skeleton } from '@material-ui/lab';
+import { Replay } from '@mui-ui/icons-material';
 
 import { Container } from './styles';
 
-const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
+const CardLoading = ({ isLoading, hasError, onPress, rows }) => {
     return (
 
         <Container>
@@ -56,4 +55,4 @@ const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
     )
 }
 
-export default LoadingCard;
+export default CardLoading;

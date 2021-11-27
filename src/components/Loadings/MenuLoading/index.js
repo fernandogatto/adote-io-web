@@ -4,13 +4,12 @@ import {
     Box,
     IconButton,
     Typography,
-} from '@material-ui/core';
+    Skeleton,
+} from '@mui/material';
 
-import { Skeleton } from '@material-ui/lab';
+import { Replay } from '@mui/icons-material';
 
-import { Replay } from '@material-ui/icons';
-
-const LoadingMenu = ({ isLoading, hasError, onPress }) => {
+const MenuLoading = ({ isLoading, hasError, onPress }) => {
     return (
         <Box style={{ width: '100%', padding: '0 16px' }}>
             {hasError && (
@@ -48,4 +47,4 @@ const LoadingMenu = ({ isLoading, hasError, onPress }) => {
     )
 }
 
-export default LoadingMenu;
+export default MenuLoading;

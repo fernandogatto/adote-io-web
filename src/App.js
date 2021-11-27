@@ -6,7 +6,7 @@ import ReduxToastr from 'react-redux-toastr';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as MaterialThemeProvider } from '@mui/material/styles';
 
 import store from './common/rules/store';
 

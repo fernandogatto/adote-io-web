@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import {withTheme} from '@material-ui/core/styles';
-
-export const Container = withTheme(styled.div`
+export const Container = styled.div`
     .container-section {
         margin-bottom: 16px;
     }
@@ -63,4 +61,4 @@ export const Container = withTheme(styled.div`
             height: 42px;
         }
     }
-`);
+`;

@@ -4,13 +4,13 @@ import {
     Box,
     IconButton,
     Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { Skeleton } from '@material-ui/lab';
 
-import { Replay } from '@material-ui/icons';
+import { Replay } from '@mui/icons-material';
 
-const LoadingSidebar = ({ isLoading, hasError, onPress, rows }) => {
+const SidebarLoading = ({ isLoading, hasError, onPress, rows }) => {
     return (
         <>
             {hasError && (
@@ -43,4 +43,4 @@ const LoadingSidebar = ({ isLoading, hasError, onPress, rows }) => {
     )
 }
 
-export default LoadingSidebar;
+export default SidebarLoading;

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { withTheme } from '@material-ui/core/styles';
-
-export const Container = withTheme(styled.div`
+export const Container = styled.div`
     .container-box {
         padding: 25px 20px;
         width: 100%;
@@ -13,4 +11,4 @@ export const Container = withTheme(styled.div`
             margin-top: 16px;
         }
     }
-`);
+`;
