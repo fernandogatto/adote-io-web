@@ -22,6 +22,12 @@ const Routes = () => {
                 />
 
                 <Route
+                    path="/sign-up"
+                    component={Modules.SignUp}
+                    exact
+                />
+
+                <Route
                     path="/dashboard"
                     component={Modules.Dashboard}
                     exact

@@ -2,49 +2,51 @@ import styled from 'styled-components';
 
 import background from '../../assets/sign-in-background.jpg';
 
-export const ContainerSignIn = styled.div`
+export const ContainerSignUp = styled.div`
     height: 100vh;
     display: flex;
     align-items: stretch;
     background-color: ${props => props.theme.palette.background.secondary.main};
 
     .container-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
         max-width: 768px;
         width: 100%;
         padding: 45px 30px;
-        text-align: center;
-
-        .container-flex {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container-title {
-            margin-bottom: 24px;
-        }
-
-        img {
-            height: 90px;
-            margin-right: 8px;
-        }
-
+        overflow-y: scroll;
         h1 {
-            font-size: 54px;
+            margin-top: 16px;
+            margin-bottom: 32px;
         }
     }
 
     .container-form {
         align-items: center;
+        .container-flex {
+            display: flex;
+            margin-bottom: 16px;
+            @media(max-width: 768px) {
+                flex-direction: column;
+            }
+            .item-flex {
+                flex: 1;
+                &:nth-child(1) {
+                    margin-right: 8px;
+                    @media(max-width: 768px) {
+                        margin-right: 0;
+                        margin-bottom: 16px;
+                    }
+                }
+                &:nth-child(2) {
+                    margin-left: 8px;
+                    @media(max-width: 768px) {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
 
         .input {
             width: 100%;
-
             & + .input {
                 margin-top: 16px;
             }
@@ -52,14 +54,8 @@ export const ContainerSignIn = styled.div`
 
         .grid-button {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-
-            .container-links {
-                a + a {
-                    margin-left: 16px;
-                }
-            }
 
             .wrapper {
                 position: relative;
@@ -76,7 +72,7 @@ export const ContainerSignIn = styled.div`
     }
 `;
 
-export const SignInBackground = styled.div`
+export const SignUpBackground = styled.div`
     flex: 1;
     background: url(${background}) no-repeat center center;
     background-size: cover;
