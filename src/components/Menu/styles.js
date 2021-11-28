@@ -85,6 +85,7 @@ export const MenuContainer = styled.div`
 
         p {
             color: ${props => props.theme.palette.description.primary.main};
+            font-size: 14px;
         }
     }
 

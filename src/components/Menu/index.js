@@ -13,6 +13,8 @@ import {
 import {
     Dashboard,
     Person,
+    QuestionMark,
+    Forum,
     ExitToApp,
     Menu as MenuIcon,
     Close,
@@ -113,6 +115,22 @@ const Menu = () => {
                         >
                             <Person />
                             Adoção
+                        </NavLink>
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <QuestionMark />
+                            Dúvidas
+                        </NavLink>
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <Forum />
+                            Depoimentos
                         </NavLink>
                     </nav>
             {/* )} */}

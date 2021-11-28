@@ -12,7 +12,7 @@ import { Skeleton } from '@material-ui/lab';
 
 import { Container } from './styles';
 
-const LoadingForm = ({ isLoading, hasError, onPress }) => {
+const FormLoading = ({ isLoading, hasError, onPress }) => {
     return (
         <Container>
             {hasError && (
@@ -74,4 +74,4 @@ const LoadingForm = ({ isLoading, hasError, onPress }) => {
     )
 }
 
-export default LoadingForm;
+export default FormLoading;

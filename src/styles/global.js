@@ -43,7 +43,7 @@ export default createGlobalStyle`
         column-gap: 32px;
         row-gap: 32px;
         grid-template-areas:
-            "header header"
+            "header sidebar"
             "main sidebar"
             "footer sidebar";
 

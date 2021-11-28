@@ -13,7 +13,7 @@ import { MoreVert } from '@mui/icons-material';
 
 import { ContainerSidebarBox } from './styles';
 
-import LoadingSidebar from '../Loadings/LoadingSidebar';
+import SidebarLoading from '../Loadings/SidebarLoading';
 
 const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -35,7 +35,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
             </Box>
 
             <Box className="container-content">
-                <LoadingSidebar
+                <SidebarLoading
                     rows={2}
                     isLoading={isLoading}
                     hasError={hasError}
