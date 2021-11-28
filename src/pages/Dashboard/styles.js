@@ -20,23 +20,32 @@ export const ContentDashboard = styled.div`
     max-width: 1200px;
     width: 100%;
     margin: auto;
+
     p {
         color: ${props => props.theme.palette.description.secondary.light};
     }
+
+    .container-section + .container-section {
+        margin-top: 16px;
+    }
+
     .container-title {
         margin-bottom: 16px;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
     }
+
     .container-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 10px;
         row-gap: 15px;
+
         @media(max-width: 768px) {
             grid-template-columns: 1fr 1fr;
         }
+
         @media(max-width: 767px) {
             grid-template-columns: 1fr;
         }

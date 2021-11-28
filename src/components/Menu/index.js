@@ -12,7 +12,8 @@ import {
 
 import {
     Dashboard,
-    Person,
+    Ballot,
+    HourglassFull,
     QuestionMark,
     Forum,
     ExitToApp,
@@ -113,8 +114,16 @@ const Menu = () => {
                             to="/adoption"
                             activeClassName="active"
                         >
-                            <Person />
+                            <Ballot />
                             Adoção
+                        </NavLink>
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <HourglassFull />
+                            Pedidos
                         </NavLink>
 
                         <NavLink
