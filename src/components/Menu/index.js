@@ -7,22 +7,27 @@ import {
     Drawer,
     IconButton,
     Button,
+    Tooltip,
 } from '@mui/material';
 
 import {
     Dashboard,
+    Person,
     ExitToApp,
     Menu as MenuIcon,
     Close,
+    Search,
 } from '@mui/icons-material';
 
-import { MenuContainer } from './styles';
-
 import MenuLoading from '../Loadings/MenuLoading';
+
+import SearchDialog from '../Dialogs/SearchDialog';
 
 import logo from '../../assets/logo.png';
 
 import { useAuth } from '../../common/contexts/Auth';
+
+import { MenuContainer } from './styles';
 
 const Menu = () => {
     const history = useHistory();
@@ -32,6 +37,27 @@ const Menu = () => {
     const [mobileView, setMobileView] = useState(false);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+    const [searchDialogIsOpen, setSearchDialogIsOpen] = useState(false);
+
+    const [kids, setKids] = useState([]);
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        setKids([
+            {
+                id: 1,
+                nome: 'Beatriz Laranja',
+            },
+            {
+                id: 2,
+                nome: 'Carlos Alexandre Pereira',
+            },
+        ]);
+    }
 
     useEffect(() => {
         const setResponsiveness = () => {
@@ -80,8 +106,34 @@ const Menu = () => {
                             <Dashboard />
                             Dashboard
                         </NavLink>
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <Person />
+                            Adoção
+                        </NavLink>
                     </nav>
             {/* )} */}
+
+            <Box className="container-search">
+                <Box className="container-flex">
+                    <h4>Buscar</h4>
+
+                    <Tooltip title="Buscar" arrow>
+                        <IconButton
+                            aria-label="Buscar"
+                            size="small"
+                            onClick={() => setSearchDialogIsOpen(true)}
+                        >
+                            <Search />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+
+                <p>Faça uma busca personalizada com o perfil de criança desejado.</p>
+            </Box>
 
             <Button
                 startIcon={<ExitToApp />}
@@ -113,6 +165,19 @@ const Menu = () => {
 
     return (
         <MenuContainer>
+            <SearchDialog
+                dialogOpen={searchDialogIsOpen}
+                handleCloseDialog={() => {
+                    setSearchDialogIsOpen(false);
+                }}
+                handleConfirmAction={() => {
+                    setSearchDialogIsOpen(false);
+                }}
+                items={kids}
+                title="Buscar"
+                confirm="Confirmar"
+            />
+
             <Box className="container-logo">
                 {mobileView && (
                     <IconButton
@@ -127,15 +192,15 @@ const Menu = () => {
 
                 <img
                     src={logo}
-                    alt="Logo eMilitar"
+                    alt="Logo"
                 />
             </Box>
 
-            <MenuLoading
+            {/* <MenuLoading
                 isLoading={isLoadingUser}
                 hasError={hasErrorUser}
                 onPress={getUser}
-            />
+            /> */}
 
             {mobileView ? displayMobile() : displayDesktop()}
         </MenuContainer>

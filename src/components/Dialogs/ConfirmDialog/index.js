@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogActions,
     Button,
-} from '@ui/material';
+} from '@mui/material';
 
 import {
     DialogTitleContainer,

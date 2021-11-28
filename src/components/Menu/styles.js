@@ -70,6 +70,24 @@ export const MenuContainer = styled.div`
         }
     }
 
+    .container-search {
+        padding: 12px;
+        margin: 48px 12px 12px;
+        background-color: rgba(33, 187, 247, .15);
+        border-radius: 12px;
+
+        .container-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: ${props => props.theme.palette.description.primary.main};
+        }
+    }
+
     .logoff {
         margin-top: auto;
         margin-right: auto;

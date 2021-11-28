@@ -6,7 +6,7 @@ import {
     Route,
 } from 'react-router-dom';
 
-import CustomRoute from './CustomRoute';
+// import CustomRoute from './CustomRoute';
 
 import * as Modules from './modules';
 

@@ -10,8 +10,6 @@ import {
 
 import Menu from '../../components/Menu';
 
-import Header from '../../components/Header';
-
 import {
     ContainerDashboard,
     ContentDashboard,
@@ -22,8 +20,6 @@ const Dashboard = () => {
     return (
         <ContainerDashboard>
             <Menu />
-
-            <Header />
 
             <Box className="container-page">
 

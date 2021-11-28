@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import {
     Box,
     FormControl,
-    FormHelperText,
     TextField,
     OutlinedInput,
     InputLabel,
@@ -45,29 +44,6 @@ const SignIn = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-      });
-
-      const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-      };
-
-      const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
-      };
-
-      const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-      };
 
     const handleInputTextChange = (event) => {
         const { name, value } = event.target;
