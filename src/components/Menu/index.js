@@ -50,16 +50,7 @@ const Menu = () => {
     }, []);
 
     const getData = () => {
-        setKids([
-            {
-                id: 1,
-                nome: 'Beatriz Laranja',
-            },
-            {
-                id: 2,
-                nome: 'Carlos Alexandre Pereira',
-            },
-        ]);
+        setKids([]);
     }
 
     useEffect(() => {
@@ -97,10 +88,10 @@ const Menu = () => {
                 </IconButton>
             )}
 
-            {/* {!isLoadingUser &&
+            {!isLoadingUser &&
                 !hasErrorUser &&
                 user &&
-                user.usuario_id !== '' && ( */}
+                user.usuario_id !== '' && (
                     <nav>
                         <NavLink
                             to="/dashboard"
@@ -119,7 +110,7 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/adoption"
+                            to="/adoption-requests"
                             activeClassName="active"
                         >
                             <HourglassFull />
@@ -127,7 +118,7 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/adoption"
+                            to="/questions"
                             activeClassName="active"
                         >
                             <QuestionMark />
@@ -135,14 +126,14 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/adoption"
+                            to="/depositions"
                             activeClassName="active"
                         >
                             <Forum />
                             Depoimentos
                         </NavLink>
                     </nav>
-            {/* )} */}
+            )}
 
             <Box className="container-search">
                 <Box className="container-flex">
@@ -223,11 +214,11 @@ const Menu = () => {
                 />
             </Box>
 
-            {/* <MenuLoading
+            <MenuLoading
                 isLoading={isLoadingUser}
                 hasError={hasErrorUser}
                 onPress={getUser}
-            /> */}
+            />
 
             {mobileView ? displayMobile() : displayDesktop()}
         </MenuContainer>

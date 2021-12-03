@@ -23,7 +23,7 @@ const CustomRoute = ({ isPrivate, component: Component, ...rest }) => {
                         to={{
                             pathname: _isPrivate
                                 ? '/'
-                                : '/status-do-alistamento',
+                                : '/dashboard',
                             state: { from: props.location },
                         }}
                     />

@@ -160,7 +160,7 @@ const SearchDialog = ({
                             disabled={isSubmitting}
                         >
                             <MenuItem value="">
-                                Gênero
+                                <em>Gênero</em>
                             </MenuItem>
 
                             <MenuItem value="Feminino">
