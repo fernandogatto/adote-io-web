@@ -6,6 +6,7 @@
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.0",
+    "@mui/lab": "^5.0.0-alpha.58",
     "@mui/material": "^5.2.1",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@mui/styled-engine-sc": "^5.1.0",
@@ -26,6 +27,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.3.3",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "resolutions": {

@@ -6,20 +6,33 @@ import { useDispatch } from 'react-redux';
 
 import InputMask from 'react-input-mask';
 
+import moment from 'moment';
+
 import {
     Box,
     TextField,
+    InputLabel,
+    MenuItem,
+    FormHelperText,
+    FormControl,
+    Select,
     Tooltip,
     IconButton,
     Button,
     CircularProgress,
 } from '@mui/material';
 
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+
 import { ArrowBack } from '@mui/icons-material';
 
-import { ContainerSignUp, SignUpBackground } from './styles';
+import UserOperations from '../../common/rules/User/UserOperations';
 
-// import UserOperations from '../../common/rules/User/UserOperations';
+import { validateCPF } from '../../common/helpers/validations';
+
+import { ContainerSignUp, SignUpBackground } from './styles';
 
 const SignUp = () => {
     const history = useHistory();
@@ -28,16 +41,28 @@ const SignUp = () => {
 
     const [inputTextData, setInputTextData] = useState({
         nome: '',
-        celular: '',
+        telefone: '',
+        cpf: '',
         email: '',
         senha: '',
         confirmarSenha: '',
     });
 
+    const [inputSelectData, setInputSelectData] = useState({
+        genero: '',
+    });
+
+    const [inputDateData, setInputDateData] = useState({
+        dataNascimento: new Date(),
+    });
+
     const [inputError, setInputError] = useState({
         nome: false,
-        celular: false,
-        tamanhoCelular: false,
+        telefone: false,
+        telefoneInvalido: false,
+        cpf: false,
+        cpfInvalido: false,
+        genero: false,
         email: false,
         senha: false,
         confirmarSenha: false,
@@ -50,6 +75,28 @@ const SignUp = () => {
         const { name, value } = event.target;
 
         setInputTextData({...inputTextData, [name]: value});
+    }
+
+    const handleInputSelectChange = (event) => {
+        const { name, value } = event.target;
+
+        setInputSelectData({ ...inputSelectData, [name]: value });
+    }
+
+    const handleInputDateChange = (value, name) => {
+        setInputDateData({ ...inputDateData, [name]: moment(value).format('MM/DD/YYYY')});
+    }
+
+    const handleValidateCpf = (event) => {
+        const { value } = event.target;
+
+        const cpfValido = validateCPF(value);
+
+        if (!cpfValido) {
+            setInputError({ ...inputError, ['cpfInvalido']: true });
+        } else {
+            setInputError({ ...inputError, ['cpfInvalido']: false });
+        }
     }
 
     const handleConfirmPassword = (event) => {
@@ -68,16 +115,27 @@ const SignUp = () => {
         try {
             const {
                 nome,
-                celular,
+                telefone,
+                cpf,
                 email,
                 senha,
                 confirmarSenha,
             } = inputTextData;
 
+            const {
+                genero,
+            } = inputSelectData;
+
+            const {
+                dataNascimento,
+            } = inputDateData;
+
             setInputError({
                 nome: nome === '' ? true : false,
-                celular: celular === '' ? true : false,
-                tamanhoCelular: celular.length < 14 ? true : false,
+                telefone: telefone === '' ? true : false,
+                telefoneInvalido: telefone.length < 14 ? true : false,
+                cpf: cpf === '' ? true : false,
+                genero: genero === '' ? true : false,
                 email: email === '' ? true : false,
                 senha: senha === '' ? true : false,
                 confirmarSenha: confirmarSenha === '' ? true : false,
@@ -86,8 +144,10 @@ const SignUp = () => {
 
             if (
                 nome !== '' &&
-                celular !== '' &&
-                !inputError.tamanhoCelular < 14 &&
+                telefone !== '' &&
+                !inputError.telefoneInvalido < 14 &&
+                cpf !== '' &&
+                genero !== '' &&
                 email !== '' &&
                 senha !== '' &&
                 confirmarSenha !== '' &&
@@ -95,14 +155,17 @@ const SignUp = () => {
             ) {
                 const data = {
                     nome,
-                    celular,
+                    telefone: telefone.replace(/[^0-9]+/g, ''),
+                    cpf: cpf.replace(/[^0-9]+/g, ''),
+                    genero,
+                    dataNascimento: moment(dataNascimento).format('YYYY-MM-DD'),
                     email,
                     senha,
                 };
 
                 setIsSubmitting(true);
 
-                // await dispatch(UserOperations.createUser(data));
+                await dispatch(UserOperations.createUser(data));
 
                 setIsSubmitting(false);
 
@@ -162,30 +225,124 @@ const SignUp = () => {
                     />
 
                     <InputMask
-                        mask={inputTextData.celular.length > 14 ? "(99) 99999-9999" : "(99) 9999-99999"}
+                        mask={inputTextData.telefone.length > 14 ? "(99) 99999-9999" : "(99) 9999-99999"}
                         maskChar=""
                         fullWidth
-                        value={inputTextData.celular}
+                        value={inputTextData.telefone}
                         onChange={handleInputTextChange}
                         disabled={isSubmitting}
                     >
-                        {() => (
+                        {(params) => (
                             <TextField
+                                {...params}
                                 required
-                                error={inputError.celular || inputError.tamanhoCelular}
+                                error={inputError.telefone || inputError.telefoneInvalido}
                                 variant="outlined"
                                 type="tel"
-                                label="Celular"
-                                name="celular"
+                                label="Telefone"
+                                name="telefone"
                                 fullWidth
                                 className="input"
                                 helperText={
-                                    (inputError.celular && 'Campo obrigatório') ||
-                                    (inputError.tamanhoCelular && 'Celular inválido')
+                                    (inputError.telefone && 'Campo obrigatório') ||
+                                    (inputError.telefoneInvalido && 'Telefone inválido')
                                 }
                             />
                         )}
                     </InputMask>
+
+                    <InputMask
+                        mask={"999.999.999-99"}
+                        maskChar=""
+                        fullWidth
+                        value={inputTextData.cpf}
+                        onChange={(event) => {
+                            handleInputTextChange(event);
+
+                            handleValidateCpf(event);
+                        }}
+                        disabled={isSubmitting}
+                    >
+                        {(params) => (
+                            <TextField
+                                {...params}
+                                required
+                                error={inputError.cpf || inputError.cpfInvalido}
+                                variant="outlined"
+                                type="tel"
+                                label="CPF"
+                                name="cpf"
+                                fullWidth
+                                className="input"
+                                helperText={
+                                    (inputError.cpf && 'Campo obrigatório') ||
+                                    (inputError.cpfInvalido && 'CPF inválido')
+                                }
+                            />
+                        )}
+                    </InputMask>
+
+                    <FormControl
+                        required
+                        error={inputError.genero}
+                        className="input"
+                        disabled={isSubmitting}
+                    >
+                        <InputLabel>
+                            Gênero
+                        </InputLabel>
+
+                        <Select
+                            value={inputSelectData.genero}
+                            label="Gênero"
+                            name="genero"
+                            onChange={handleInputSelectChange}
+                        >
+                            <MenuItem value="">
+                                <em>Gênero</em>
+                            </MenuItem>
+
+                            <MenuItem value="Feminino">
+                                Feminino
+                            </MenuItem>
+
+                            <MenuItem value="Masculino">
+                                Masculino
+                            </MenuItem>
+
+                            <MenuItem value="Outros">
+                                Outros
+                            </MenuItem>
+                        </Select>
+
+                        {inputError.genero && (
+                            <FormHelperText>
+                                Campo obrigatório
+                            </FormHelperText>
+                        )}
+                    </FormControl>
+
+                    <LocalizationProvider
+                        dateAdapter={AdapterMoment}
+                    >
+                        <DatePicker
+                            label="Data de nascimento"
+                            name="dataNascimento"
+                            value={inputDateData.dataNascimento}
+                            inputFormat={moment(inputDateData.dataNascimento)
+                                .format('DD/MM/YYYY')}
+                            onChange={(value) => {
+                                handleInputDateChange(value, 'dataNascimento');
+                            }}
+                            disabled={isSubmitting}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    className="input"
+                                />
+                            )}
+                        />
+                    </LocalizationProvider>
 
                     <TextField
                         required
