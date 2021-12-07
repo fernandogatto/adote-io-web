@@ -40,6 +40,20 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/adoption/create"
+                    component={Modules.CreateEditChild}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/adoption/child/:id"
+                    component={Modules.ViewChild}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

@@ -50,7 +50,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                     <Box className="item-box" key={index}>
                         <Box style={{ display: 'flex' }}>
                             <img
-                                src={item.url}
+                                src={item.imagem}
                                 alt={item.nome}
                                 className="avatar"
                             />
@@ -58,7 +58,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                             <Box>
                                 <h3>{item.nome}</h3>
 
-                                <p>{item.estabelecimento}</p>
+                                <p>{item.localizacao}</p>
                             </Box>
                         </Box>
 

@@ -4,11 +4,10 @@ import {
     Box,
     IconButton,
     Typography,
+    Skeleton,
 } from '@mui/material';
 
 import { Replay } from '@mui/icons-material';
-
-import { Skeleton } from '@material-ui/lab';
 
 import { Container } from './styles';
 

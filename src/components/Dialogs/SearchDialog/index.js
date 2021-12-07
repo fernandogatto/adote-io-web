@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
     Dialog,
@@ -46,7 +46,9 @@ const SearchDialog = ({
         idade: [0, 10],
     });
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [inputTextData, setInputTextData] = useState({
+        localizacao: '',
+    });
 
     const handleAutocompleteChange = (event, value, type) => {
         setInputAutocompleteData({ ...inputAutocompleteData, [type]: value });
@@ -62,37 +64,33 @@ const SearchDialog = ({
         setSliderData({ ...sliderData, [type]: value });
     }
 
+    const handleInputTextChange = (event) => {
+        const { name, value } = event.target;
+
+        setInputTextData({ ...inputTextData, [name]: value });
+    }
+
     const handleSubmit = () => {
         try {
-            const {
-                crianca,
-            } = inputAutocompleteData;
+            const { crianca } = inputAutocompleteData;
 
-            const {
-                genero,
-            } = inputSelectData;
+            const { genero } = inputSelectData;
 
-            const {
-                idade,
-            } = sliderData;
+            const { idade } = sliderData;
+
+            const { localizacao } = inputTextData;
 
             const data = {
-                crianca,
+                nome: crianca,
                 genero,
-                idade,
+                idadeMinima: idade[0],
+                idadeMaxima: idade[1],
+                localizacao: localizacao,
             };
 
-            console.log('handleSubmit', data);
-
-            setIsSubmitting(true);
-
-            setIsSubmitting(false);
-
-            handleConfirmAction();
+            handleConfirmAction(data);
         } catch (err) {
             console.log('handleSubmit', err);
-
-            setIsSubmitting(false);
         }
     }
 
@@ -124,14 +122,11 @@ const SearchDialog = ({
                         }}
                         onChange={(event, value) => {
                             if (value) {
-                                handleAutocompleteChange(event, value.id, 'crianca');
+                                handleAutocompleteChange(event, value.nome, 'crianca');
                             } else {
                                 handleAutocompleteChange(event, '', 'crianca');
                             }
                         }}
-                        disabled={
-                            isSubmitting
-                        }
                         className="input"
                         renderInput={(props) => (
                             <TextField
@@ -157,7 +152,6 @@ const SearchDialog = ({
                             onChange={handleSelectChange}
                             label="Gênero"
                             name="genero"
-                            disabled={isSubmitting}
                         >
                             <MenuItem value="">
                                 <em>Gênero</em>
@@ -172,6 +166,17 @@ const SearchDialog = ({
                             </MenuItem>
                         </Select>
                     </FormControl>
+
+                    <TextField
+                        variant="outlined"
+                        type="text"
+                        name="localizacao"
+                        label="Localização"
+                        fullWidth
+                        value={inputTextData.localizacao}
+                        onChange={handleInputTextChange}
+                        className="input"
+                    />
 
                     <Box className="input">
                         <Typography mb={1}>
@@ -201,17 +206,9 @@ const SearchDialog = ({
                     </Button>
 
                     <Box className="wrapper custom-button">
-                        {isSubmitting && (
-                            <CircularProgress
-                                className="circular-progress"
-                                style={{ width: 24, height: 24 }}
-                            />
-                        )}
-
                         <Button
                             variant="contained"
                             color="primary"
-                            disabled={isSubmitting}
                             onClick={handleSubmit}
                         >
                             {confirm}

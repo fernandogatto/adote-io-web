@@ -1,42 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Box,
+    Button,
 } from '@mui/material';
-
-import { useAuth } from '../../common/contexts/Auth';
 
 import Menu from '../../components/Menu';
 
 import SidebarBox from '../../components/SidebarBox'
 
+import Slider from '../../components/Slider';
+
+import ChildOperations from '../../common/rules/Child/ChildOperations';
+
+import image from '../../assets/family-amico.png';
+
 import {
     ContainerDashboard,
     ContentDashboard,
-    ItemCard,
 } from './styles';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
 
-    const { user } = useAuth();
+    const {
+        IsLoading: IsLoadingKids,
+        HasError: HasErrorKids,
+        Data: Kids
+    } = useSelector(state => state.Child);
 
-    const [kids, setKids] = useState([]);
-
-    const [isLoadingKids, setIsLoadingKids] = useState(true);
-
-    const [hasErrorKids, setHasErrorKids] = useState(false);
+    const depoimentos = [
+        {
+            nome: 'Augusto Jones Nascimento',
+            depoimento: 'Adorei a forma como fui atendido. O processo de adoção foi rápido e todos foram atenciosos comigo.',
+        },
+        {
+            nome: 'Ana Müller Hoffmann',
+            depoimento: 'Adotei dois irmãos e hoje posso dizer que tenho uma família. Agradeço muito a ajuda de todos os envolvidos.',
+        }
+    ];
 
     useEffect(() => {
         getKids();
     }, []);
 
-    const getKids = () => {
+    const getKids = async () => {
+        try {
+            const search = {
+                nome: '',
+                genero: '',
+                idadeMaxima: '',
+                idadeMinima: '',
+                localizacao: '',
+            };
 
+            await dispatch(ChildOperations.getChildren(search));
+        } catch (err) {
+            console.log('getKids - Dashboard', err);
+        }
     }
 
     return (
@@ -46,7 +71,25 @@ const Dashboard = () => {
             <Box className="container-page">
                 <ContentDashboard className="container-grid-area">
                     <Box className="item-header">
-                        <h1>Olá, {user.nome}</h1>
+                        <Box className="container-description">
+                            <h1>Encontre uma família para chamar de sua</h1>
+
+                            <p>Nós te ajudamos a construir o início de uma família aqui. A sua satisfação é a nossa conquista.</p>
+
+                            <Button
+                                component={Link}
+                                to="/adoption"
+                            >
+                                Saiba mais
+                            </Button>
+                        </Box>
+
+                        <Box className="container-image">
+                            <img
+                                src={image}
+                                alt="Encontre uma família para chamar de sua"
+                            />
+                        </Box>
                     </Box>
 
                     <Box className="item-main">
@@ -55,15 +98,25 @@ const Dashboard = () => {
                                 <h3>Objetivo</h3>
                             </Box>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum et purus in interdum. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae nulla at leo ultricies lobortis. Pellentesque ac malesuada orci. Nulla non nunc enim. Vestibulum imperdiet vitae orci vitae bibendum. In sit amet commodo orci, non consequat dolor. Nullam consectetur eros in hendrerit aliquet. Donec viverra, augue commodo mollis varius, quam mi tempus felis, eu suscipit dolor dolor aliquam tortor. Donec eget rutrum purus, a scelerisque urna. Nulla consectetur varius quam vitae tempus. Suspendisse dignissim leo a lacus pulvinar tincidunt. Praesent tempus velit quis feugiat viverra. Maecenas sit amet arcu lacus.</p>
+                            <p>
+                                Nosso objetivo é formar novos núcleos familiares e dar novas oportunidades a todas as crianças que hoje estão em nossos abrigos.
+                            </p>
                         </Box>
 
                         <Box className="container-section">
                             <Box className="container-title">
-                                <h3>Sobre</h3>
+                                <h3>Quem somos</h3>
                             </Box>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum et purus in interdum. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae nulla at leo ultricies lobortis. Pellentesque ac malesuada orci. Nulla non nunc enim. Vestibulum imperdiet vitae orci vitae bibendum. In sit amet commodo orci, non consequat dolor. Nullam consectetur eros in hendrerit aliquet. Donec viverra, augue commodo mollis varius, quam mi tempus felis, eu suscipit dolor dolor aliquam tortor. Donec eget rutrum purus, a scelerisque urna. Nulla consectetur varius quam vitae tempus. Suspendisse dignissim leo a lacus pulvinar tincidunt. Praesent tempus velit quis feugiat viverra. Maecenas sit amet arcu lacus.</p>
+                            <p>
+                                A história da Adote.io começa nas histórias contadas por Dona Chica da Silva, uma senhora do interior do Rio de Janeiro que começou a abrigar crianças que suas famílias não tinham muitas condições de dar bons cuidados.
+                                <br/>
+                                <br/>
+                                Com o passar dos anos, a chácara dela se tornou uma referência de abrigo na região. Dessa forma, os cuidados de Dona Chica foram sendo espalhados e novos abrigos foram sendo abertos na região.
+                                <br/>
+                                <br/>
+                                Assim nasceu a Adote.io, um aglomerado de abrigos que cuidam de crianças a fim de dar uma família para elas. E nós fazemos a ponte entre você e elas.
+                            </p>
                         </Box>
                     </Box>
 
@@ -72,24 +125,22 @@ const Dashboard = () => {
                             title="Adoção"
                             linkDomain="/adoption/child"
                             linkSeeMore="/adoption"
-                            array={kids}
-                            isLoading={isLoadingKids}
-                            hasError={hasErrorKids}
+                            array={Kids}
+                            isLoading={IsLoadingKids}
+                            hasError={HasErrorKids}
                             onPress={getKids}
                         />
                     </Box>
 
                     <Box className="item-footer">
                         <Box className="container-section">
-                            <Box className="container-title">
-                                <h3>Depoimentos</h3>
-
-                                <Link to="/depositions">
-                                    Ver mais
-                                </Link>
-                            </Box>
-
-                            <p>Lorem</p>
+                            <Slider
+                                title="Depoimentos"
+                                array={depoimentos}
+                                isLoading={false}
+                                hasError={false}
+                                onPress={() => {}}
+                            />
                         </Box>
 
                         <Box className="container-section">
@@ -97,7 +148,7 @@ const Dashboard = () => {
                                 <h3>Contato</h3>
                             </Box>
 
-                            <p>Telefone</p>
+                            <p>(21) 2721-8280 · (21) 2721-8180 · (21) 2721-8080</p>
                         </Box>
                     </Box>
                 </ContentDashboard>

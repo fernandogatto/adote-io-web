@@ -21,12 +21,45 @@ export const ContentDashboard = styled.div`
     width: 100%;
     margin: auto;
 
+    &.container-grid-area {
+        .item-header {
+            padding: 40px 20px 20px;
+            border-radius: 12px;
+            background-color: #FFF;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @media(max-width: 767px) {
+                flex-direction: column;
+            }
+
+            .container-description {
+                h1 {
+                    margin-bottom: 24px;
+                }
+
+                a {
+                    margin-top: 24px;
+                }
+            }
+
+            .container-image {
+                img {
+                    max-width: 300px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
     p {
         color: ${props => props.theme.palette.description.secondary.light};
     }
 
     .container-section + .container-section {
-        margin-top: 16px;
+        margin-top: 32px;
     }
 
     .container-title {
@@ -34,6 +67,19 @@ export const ContentDashboard = styled.div`
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+    }
+
+    .container-flex {
+        display: flex;
+        align-items: center;
+    }
+
+    .container-button {
+        margin-left: 16px;
+
+        button + button {
+            margin-left: 8px;
+        }
     }
 
     .container-grid {

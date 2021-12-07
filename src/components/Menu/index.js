@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { NavLink, useHistory } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+
 import {
     Box,
     Drawer,
@@ -13,7 +15,7 @@ import {
 import {
     Dashboard,
     Ballot,
-    HourglassFull,
+    // HourglassFull,
     QuestionMark,
     Forum,
     ExitToApp,
@@ -30,10 +32,14 @@ import logo from '../../assets/logo.png';
 
 import { useAuth } from '../../common/contexts/Auth';
 
+import ChildOperations from '../../common/rules/Child/ChildOperations';
+
 import { MenuContainer } from './styles';
 
 const Menu = () => {
     const history = useHistory();
+
+    const dispatch = useDispatch();
 
     const { isLoadingUser, hasErrorUser, user, getUser, signOut } = useAuth();
 
@@ -46,11 +52,33 @@ const Menu = () => {
     const [kids, setKids] = useState([]);
 
     useEffect(() => {
-        getData();
+        getKids();
     }, []);
 
-    const getData = () => {
-        setKids([]);
+    const getKids = async () => {
+        try {
+            const search = {
+                nome: '',
+                genero: '',
+                idadeMinima: '',
+                idadeMaxima: '',
+                localizacao: '',
+            };
+
+            const response = await dispatch(ChildOperations.getChildren(search));
+
+            setKids(response);
+        } catch (err) {
+            console.log('getKids - Menu', err);
+        }
+    }
+
+    const handleSubmitSearch = (data) => {
+        dispatch(ChildOperations.getChildren(data));
+
+        setSearchDialogIsOpen(false);
+
+        history.push('/adoption');
     }
 
     useEffect(() => {
@@ -98,7 +126,7 @@ const Menu = () => {
                             activeClassName="active"
                         >
                             <Dashboard />
-                            Dashboard
+                            Início
                         </NavLink>
 
                         <NavLink
@@ -109,13 +137,13 @@ const Menu = () => {
                             Adoção
                         </NavLink>
 
-                        <NavLink
+                        {/* <NavLink
                             to="/adoption-requests"
                             activeClassName="active"
                         >
                             <HourglassFull />
                             Pedidos
-                        </NavLink>
+                        </NavLink> */}
 
                         <NavLink
                             to="/questions"
@@ -188,9 +216,7 @@ const Menu = () => {
                 handleCloseDialog={() => {
                     setSearchDialogIsOpen(false);
                 }}
-                handleConfirmAction={() => {
-                    setSearchDialogIsOpen(false);
-                }}
+                handleConfirmAction={handleSubmitSearch}
                 items={kids}
                 title="Buscar"
                 confirm="Confirmar"

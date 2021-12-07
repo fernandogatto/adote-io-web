@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import moment from 'moment';
 
 import {
     Box,
@@ -18,8 +20,8 @@ import {
 
 import {
     Add,
-    Create,
-    Delete,
+    // Create,
+    // Delete,
 } from '@mui/icons-material';
 
 import { useAuth } from '../../common/contexts/Auth';
@@ -30,7 +32,7 @@ import CardLoading from '../../components/Loadings/CardLoading';
 
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
-// import PetOperations from '../../common/rules/Pet/PetOperations';
+import ChildOperations from '../../common/rules/Child/ChildOperations';
 
 import {
     ContainerAdoption,
@@ -41,46 +43,31 @@ import {
 const Adoption = () => {
     const dispatch = useDispatch();
 
+    const {
+        IsLoading: IsLoadingKids,
+        HasError: HasErrorKids,
+        Data: Kids
+    } = useSelector(state => state.Child);
+
     const { user } = useAuth();
-
-    const [kids, setKids] = useState([]);
-
-    const [isLoading, setIsLoading] = useState(true);
-
-    const [hasError, setHasError] = useState(false);
 
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
     const [deletedItem, setDeletedItem] = useState({});
 
-    useEffect(() => {
-        getPets();
-    }, []);
-
-    const getPets = async () => {
+    const getKids = async () => {
         try {
-            setIsLoading(true);
+            const search = {
+                nome: '',
+                genero: '',
+                idadeMinima: '',
+                idadeMaxima: '',
+                localizacao: '',
+            };
 
-            setHasError(false);
-
-            // const response = await dispatch(PetOperations.getPets());
-            const response = [{
-                id: 1,
-                nome: 'Roberto Carlos',
-                idade: 3,
-                genero: 'Masculino',
-                imagem: 'https://www.grudadoemvoce.com.br/wp-content/uploads/2019/08/1566841306-f2b26118ae493d30d03061c2ad8fdd74.jpg'
-            }];
-
-            setIsLoading(false);
-
-            setKids(response);
+            await dispatch(ChildOperations.getChildren(search));
         } catch (err) {
-            console.log('getPets', err);
-
-            setIsLoading(false);
-
-            setHasError(true);
+            console.log('getKids - Adoption', err);
         }
     }
 
@@ -94,15 +81,19 @@ const Adoption = () => {
     }
 
     const handleDelete = async (item) => {
-        let _items = [...kids];
+        let _items = [...Kids];
 
         _items.splice(item.index, 1);
 
-        setKids(_items);
-
-        // await dispatch(PetOperations.deletePetById(item.id));
+        // await dispatch(ChildOperations.deleteChildById(item.id));
 
         setDeletedItem({});
+
+        getKids();
+    }
+
+    const getDateDifference = (value) => {
+        return moment().diff(value, 'years');
     }
 
     return (
@@ -144,18 +135,18 @@ const Adoption = () => {
                     </Box>
 
                     <CardLoading
-                        isLoading={isLoading}
-                        hasError={hasError}
-                        onPress={getPets}
+                        isLoading={IsLoadingKids}
+                        hasError={HasErrorKids}
+                        onPress={getKids}
                         rows={8}
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && kids && kids.length === 0 && (
+                        {!IsLoadingKids && !HasErrorKids && Kids && Kids.length === 0 && (
                             <p>Nenhum resultado encontrado</p>
                         )}
 
-                        {!isLoading && !hasError && kids && kids.length > 0 && kids.map((item, index) => (
+                        {!IsLoadingKids && !HasErrorKids && Kids && Kids.length > 0 && Kids.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardMedia
@@ -178,7 +169,7 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Idade: {item.idade}
+                                            Idade: {getDateDifference(item.dataNascimento)}
                                         </Typography>
 
                                         <Typography
@@ -188,11 +179,19 @@ const Adoption = () => {
                                         >
                                             Gênero: {item.genero}
                                         </Typography>
+
+                                        <Typography
+                                            variant="body2"
+                                            color="textSecondary"
+                                            component="p"
+                                        >
+                                            {item.localizacao}
+                                        </Typography>
                                     </CardContent>
 
                                     <CardActions>
                                         <Button
-                                            aria-label="Ver detalhes do pet"
+                                            aria-label="Ver detalhes da criança"
                                             size="small"
                                             color="primary"
                                             component={Link}
@@ -201,7 +200,7 @@ const Adoption = () => {
                                             Ver detalhes
                                         </Button>
 
-                                        {user.perfil === 'ADMINISTRADOR' && (
+                                        {/* {user.perfil === 'ADMINISTRADOR' && (
                                             <Box className="container-button">
                                                 <Tooltip title="Editar" arrow>
                                                     <IconButton
@@ -224,7 +223,7 @@ const Adoption = () => {
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
-                                        )}
+                                        )} */}
                                     </CardActions>
                                 </Card>
                             </ItemCard>
