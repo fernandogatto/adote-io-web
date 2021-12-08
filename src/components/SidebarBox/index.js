@@ -15,7 +15,7 @@ import { ContainerSidebarBox } from './styles';
 
 import SidebarLoading from '../Loadings/SidebarLoading';
 
-const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) => {
+const SidebarBox = ({ title, linkDomain, linkSeeMore, array, isLoading, hasError, onPress }) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
@@ -93,6 +93,15 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                         </Menu>
                     </Box>
                 ))}
+
+                {!isLoading && !hasError && array && array.length > 0 && (
+                    <Link
+                        to={linkSeeMore}
+                        className="link-box"
+                    >
+                        Ver mais
+                    </Link>
+                )}
             </Box>
         </ContainerSidebarBox>
     )

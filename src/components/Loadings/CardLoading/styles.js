@@ -20,6 +20,7 @@ export const ContainerCard = styled.div`
 
     .card-container {
         padding: 0;
+        border-radius: 12px;
     }
 
     .image-item {

@@ -45,6 +45,11 @@ const theme = createTheme({
                 borderRadius: 12,
             },
         },
+        MuiCard: {
+            root: {
+                borderRadius: 12,
+            },
+        },
         MuiPaper: {
             root: {
                 padding: 0,

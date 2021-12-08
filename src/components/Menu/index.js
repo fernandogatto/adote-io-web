@@ -146,11 +146,11 @@ const Menu = () => {
                         </NavLink> */}
 
                         <NavLink
-                            to="/questions"
+                            to="/adoption-process"
                             activeClassName="active"
                         >
                             <QuestionMark />
-                            Dúvidas
+                            Processo de adoção
                         </NavLink>
 
                         <NavLink

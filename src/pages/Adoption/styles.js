@@ -43,13 +43,17 @@ export const ContentAdoption = styled.div`
 export const ItemCard = styled.div`
     .card-container {
         padding: 0;
+        border-radius: 12px;
+
         a:hover {
             color: ${props => props.theme.palette.text.secondary};
         }
+
         .container-button {
             margin-left: auto;
         }
     }
+
     .image-item {
         height: 200px;
     }

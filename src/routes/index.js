@@ -54,6 +54,20 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/depositions"
+                    component={Modules.Depositions}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/adoption-process"
+                    component={Modules.AdoptionProcess}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

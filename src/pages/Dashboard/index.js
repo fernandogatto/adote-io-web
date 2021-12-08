@@ -78,7 +78,7 @@ const Dashboard = () => {
 
                             <Button
                                 component={Link}
-                                to="/adoption"
+                                to="/adoption-process"
                             >
                                 Saiba mais
                             </Button>
@@ -109,10 +109,10 @@ const Dashboard = () => {
                             </Box>
 
                             <p>
-                                A história da Adote.io começa nas histórias contadas por Dona Chica da Silva, uma senhora do interior do Rio de Janeiro que começou a abrigar crianças que suas famílias não tinham muitas condições de dar bons cuidados.
+                                A história da Adote.io começa nas histórias contadas por Dona Francisca da Silva, uma senhora do interior do Rio de Janeiro que começou a abrigar crianças vindas de famílias com poucas condições de sustento.
                                 <br/>
                                 <br/>
-                                Com o passar dos anos, a chácara dela se tornou uma referência de abrigo na região. Dessa forma, os cuidados de Dona Chica foram sendo espalhados e novos abrigos foram sendo abertos na região.
+                                Com o passar dos anos, a chácara dela se tornou uma referência de abrigo na região. Dessa forma, os cuidados de Dona Chica foram espalhando e novos abrigos abriram na região.
                                 <br/>
                                 <br/>
                                 Assim nasceu a Adote.io, um aglomerado de abrigos que cuidam de crianças a fim de dar uma família para elas. E nós fazemos a ponte entre você e elas.
