@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/adote-io-web/static/js/main.4e4c2420.chunk.js",
-    "main.js.map": "/adote-io-web/static/js/main.4e4c2420.chunk.js.map",
+    "main.js": "/adote-io-web/static/js/main.1652fb48.chunk.js",
+    "main.js.map": "/adote-io-web/static/js/main.1652fb48.chunk.js.map",
     "runtime-main.js": "/adote-io-web/static/js/runtime-main.46168b7e.js",
     "runtime-main.js.map": "/adote-io-web/static/js/runtime-main.46168b7e.js.map",
     "static/css/2.caac94ae.chunk.css": "/adote-io-web/static/css/2.caac94ae.chunk.css",
-    "static/js/2.a85ea365.chunk.js": "/adote-io-web/static/js/2.a85ea365.chunk.js",
-    "static/js/2.a85ea365.chunk.js.map": "/adote-io-web/static/js/2.a85ea365.chunk.js.map",
+    "static/js/2.e2138a06.chunk.js": "/adote-io-web/static/js/2.e2138a06.chunk.js",
+    "static/js/2.e2138a06.chunk.js.map": "/adote-io-web/static/js/2.e2138a06.chunk.js.map",
     "index.html": "/adote-io-web/index.html",
     "static/css/2.caac94ae.chunk.css.map": "/adote-io-web/static/css/2.caac94ae.chunk.css.map",
-    "static/js/2.a85ea365.chunk.js.LICENSE.txt": "/adote-io-web/static/js/2.a85ea365.chunk.js.LICENSE.txt",
+    "static/js/2.e2138a06.chunk.js.LICENSE.txt": "/adote-io-web/static/js/2.e2138a06.chunk.js.LICENSE.txt",
     "static/media/family-amico.f0e99962.png": "/adote-io-web/static/media/family-amico.f0e99962.png",
     "static/media/logo.4aee0a57.png": "/adote-io-web/static/media/logo.4aee0a57.png",
     "static/media/sign-in-background.d0d1d172.jpg": "/adote-io-web/static/media/sign-in-background.d0d1d172.jpg"
@@ -17,7 +17,7 @@
   "entrypoints": [
     "static/js/runtime-main.46168b7e.js",
     "static/css/2.caac94ae.chunk.css",
-    "static/js/2.a85ea365.chunk.js",
-    "static/js/main.4e4c2420.chunk.js"
+    "static/js/2.e2138a06.chunk.js",
+    "static/js/main.1652fb48.chunk.js"
   ]
 }
