@@ -133,7 +133,7 @@ const CreateEditChild = ({ match }) => {
     }
 
     const handleInputDateChange = (value, name) => {
-        setInputDateData({ ...inputDateData, [name]: format(value, "MM/dd/yyyy") });
+        setInputDateData({ ...inputDateData, [name]: format(new Date(value), "MM/dd/yyyy") });
     }
 
     const handleSubmit = async () => {
@@ -169,7 +169,7 @@ const CreateEditChild = ({ match }) => {
                     localizacao,
                     genero,
                     saude,
-                    dataNascimento: format(dataNascimento, "yyyy-MM-dd"),
+                    dataNascimento: format(new Date(dataNascimento), "yyyy-MM-dd"),
                     conteudos: [
                         {
                             tipo: 'Imagem',
@@ -287,7 +287,7 @@ const CreateEditChild = ({ match }) => {
                                                 name="dataNascimento"
                                                 value={inputDateData.dataNascimento}
                                                 inputFormat={
-                                                    format(inputDateData.dataNascimento, "dd/MM/yyyy")
+                                                    format(new Date(inputDateData.dataNascimento), "dd/MM/yyyy")
                                                 }
                                                 onChange={(value) => {
                                                     handleInputDateChange(value, 'dataNascimento');

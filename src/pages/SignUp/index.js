@@ -84,7 +84,7 @@ const SignUp = () => {
     }
 
     const handleInputDateChange = (value, name) => {
-        setInputDateData({ ...inputDateData, [name]: format(value, "MM/dd/yyyy") });
+        setInputDateData({ ...inputDateData, [name]: format(new Date(value), "MM/dd/yyyy") });
     }
 
     const handleValidateCpf = (event) => {
@@ -158,7 +158,7 @@ const SignUp = () => {
                     telefone: telefone.replace(/[^0-9]+/g, ''),
                     cpf: cpf.replace(/[^0-9]+/g, ''),
                     genero,
-                    dataNascimento: format(dataNascimento, "yyyy-MM-dd"),
+                    dataNascimento: format(new Date(dataNascimento), "yyyy-MM-dd"),
                     email,
                     senha,
                 };
@@ -330,7 +330,7 @@ const SignUp = () => {
                             name="dataNascimento"
                             value={inputDateData.dataNascimento}
                             inputFormat={
-                                format(inputDateData.dataNascimento, "dd/MM/yyyy")
+                                format(new Date(inputDateData.dataNascimento), "dd/MM/yyyy")
                             }
                             onChange={(value) => {
                                 handleInputDateChange(value, 'dataNascimento');
