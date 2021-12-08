@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import moment from 'moment';
+import { format, differenceInYears, parse } from 'date-fns';
 
 import {
     Box,
@@ -92,8 +92,14 @@ const Adoption = () => {
         getKids();
     }
 
-    const getDateDifference = (value) => {
-        return moment().diff(value, 'years');
+    const calculateAge = (value) => {
+        const _value = format(new Date(value), 'dd/MM/yyyy');
+
+        const date = parse(_value, 'dd/MM/yyyy', new Date());
+
+        const age = differenceInYears(new Date(), date);
+
+        return age;
     }
 
     return (
@@ -169,7 +175,7 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Idade: {getDateDifference(item.dataNascimento)}
+                                            Idade: {calculateAge(item.dataNascimento)}
                                         </Typography>
 
                                         <Typography

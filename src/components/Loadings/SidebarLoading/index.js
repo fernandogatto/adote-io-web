@@ -28,7 +28,7 @@ const SidebarLoading = ({ isLoading, hasError, onPress, rows }) => {
                 [...Array(rows)].map((element, index) => (
                     <Box key={index} style={{marginBottom: 16}}>
                         <Box style={{ display: 'flex' }}>
-                            <Skeleton variant="circle" width={40} height={40} style={{marginRight: 16}} />
+                            <Skeleton variant="circular" width={40} height={40} style={{marginRight: 16}} />
 
                             <Box>
                                 <Skeleton variant="text" width={150}  height={30} style={{marginBottom: 4}} />

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import InputMask from 'react-input-mask';
 
-import moment from 'moment';
+import { format } from 'date-fns';
 
 import {
     Box,
@@ -22,7 +22,7 @@ import {
     CircularProgress,
 } from '@mui/material';
 
-import AdapterMoment from '@mui/lab/AdapterMoment';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
@@ -84,7 +84,7 @@ const SignUp = () => {
     }
 
     const handleInputDateChange = (value, name) => {
-        setInputDateData({ ...inputDateData, [name]: moment(value).format('MM/DD/YYYY')});
+        setInputDateData({ ...inputDateData, [name]: format(value, "MM/dd/yyyy") });
     }
 
     const handleValidateCpf = (event) => {
@@ -158,7 +158,7 @@ const SignUp = () => {
                     telefone: telefone.replace(/[^0-9]+/g, ''),
                     cpf: cpf.replace(/[^0-9]+/g, ''),
                     genero,
-                    dataNascimento: moment(dataNascimento).format('YYYY-MM-DD'),
+                    dataNascimento: format(dataNascimento, "yyyy-MM-dd"),
                     email,
                     senha,
                 };
@@ -323,14 +323,15 @@ const SignUp = () => {
                     </FormControl>
 
                     <LocalizationProvider
-                        dateAdapter={AdapterMoment}
+                        dateAdapter={AdapterDateFns}
                     >
                         <DatePicker
                             label="Data de nascimento"
                             name="dataNascimento"
                             value={inputDateData.dataNascimento}
-                            inputFormat={moment(inputDateData.dataNascimento)
-                                .format('DD/MM/YYYY')}
+                            inputFormat={
+                                format(inputDateData.dataNascimento, "dd/MM/yyyy")
+                            }
                             onChange={(value) => {
                                 handleInputDateChange(value, 'dataNascimento');
                             }}

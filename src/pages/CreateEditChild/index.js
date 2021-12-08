@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import moment from 'moment';
+import { format, parseISO } from 'date-fns';
 
 import {
     Box,
@@ -22,7 +22,7 @@ import {
 
 import { ArrowBack } from '@mui/icons-material';
 
-import AdapterMoment from '@mui/lab/AdapterMoment';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
@@ -107,6 +107,10 @@ const CreateEditChild = ({ match }) => {
                 genero: response.genero,
                 saude: response.saude,
             });
+
+            setInputDateData({
+                dataNascimento: format(new Date(response.dataNascimento), 'MM/dd/yyyy')
+            });
         } catch (err) {
             console.log('getChild', err);
 
@@ -129,7 +133,7 @@ const CreateEditChild = ({ match }) => {
     }
 
     const handleInputDateChange = (value, name) => {
-        setInputDateData({ ...inputDateData, [name]: moment(value).format('MM/DD/YYYY')});
+        setInputDateData({ ...inputDateData, [name]: format(value, "MM/dd/yyyy") });
     }
 
     const handleSubmit = async () => {
@@ -165,7 +169,7 @@ const CreateEditChild = ({ match }) => {
                     localizacao,
                     genero,
                     saude,
-                    dataNascimento: moment(dataNascimento).format('YYYY-MM-DD'),
+                    dataNascimento: format(dataNascimento, "yyyy-MM-dd"),
                     conteudos: [
                         {
                             tipo: 'Imagem',
@@ -276,14 +280,15 @@ const CreateEditChild = ({ match }) => {
                                         </FormControl>
 
                                         <LocalizationProvider
-                                            dateAdapter={AdapterMoment}
+                                            dateAdapter={AdapterDateFns}
                                         >
                                             <DatePicker
                                                 label="Data de nascimento"
                                                 name="dataNascimento"
                                                 value={inputDateData.dataNascimento}
-                                                inputFormat={moment(inputDateData.dataNascimento)
-                                                    .format('DD/MM/YYYY')}
+                                                inputFormat={
+                                                    format(inputDateData.dataNascimento, "dd/MM/yyyy")
+                                                }
                                                 onChange={(value) => {
                                                     handleInputDateChange(value, 'dataNascimento');
                                                 }}

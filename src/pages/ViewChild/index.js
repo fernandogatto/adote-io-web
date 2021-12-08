@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import moment from 'moment';
+import { format, parseISO } from 'date-fns';
 
 import {
     Box,
@@ -15,6 +15,8 @@ import {
 import { ArrowBack } from '@mui/icons-material';
 
 import Menu from '../../components/Menu';
+
+import ViewLoading from '../../components/Loadings/ViewLoading';
 
 import ChildOperations from '../../common/rules/Child/ChildOperations';
 
@@ -85,6 +87,12 @@ const ViewChild = ({ match }) => {
                         <h1>Adoção</h1>
                     </Box>
 
+                    <ViewLoading
+                        isLoading={isLoading}
+                        hasError={hasError}
+                        onPress={getChild}
+                    />
+
                     {!isLoading && !hasError && child && child.nome !== '' && (
                         <Box className="container-info">
                             <Box className="container-image">
@@ -105,7 +113,7 @@ const ViewChild = ({ match }) => {
                                 <Box className="container-registry">
                                     <p>Gênero: {child.genero}</p>
 
-                                    <p>Data de nascimento: {moment(child.dataNascimento).format('DD/MM/YYYY')}</p>
+                                    <p>Data de nascimento: {format(new Date(child.dataNascimento), 'dd/MM/yyyy')}</p>
 
                                     <p>Saúde: {child.saude}</p>
 
