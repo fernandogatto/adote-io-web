@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Box,
@@ -10,6 +10,7 @@ import {
     IconButton,
     Button,
     Tooltip,
+    Badge,
 } from '@mui/material';
 
 import {
@@ -41,6 +42,8 @@ const Menu = () => {
 
     const dispatch = useDispatch();
 
+    const {  NewChild } = useSelector(state => state.Child);
+
     const { isLoadingUser, hasErrorUser, user, getUser, signOut } = useAuth();
 
     const [mobileView, setMobileView] = useState(false);
@@ -65,12 +68,30 @@ const Menu = () => {
                 localizacao: '',
             };
 
-            const response = await dispatch(ChildOperations.getChildren(search));
+            const promises = [
+                dispatch(ChildOperations.getChildren(search)),
+                dispatch(ChildOperations.getLastChildren()),
+                dispatch(ChildOperations.getLastChild())
+            ];
 
-            setKids(response);
+            const responses = await Promise.all(promises);
+
+            setKids(responses[0]);
+
+            const lastKids = responses[1];
+
+            const lastChild = responses[2];
+
+            if (lastKids[0] && lastChild && lastKids[0].id !== lastChild.id) {
+                dispatch(ChildOperations.setNewChild(true));
+            }
         } catch (err) {
             console.log('getKids - Menu', err);
         }
+    }
+
+    const handleRemoveNotification = () => {
+        dispatch(ChildOperations.setNewChild(false));
     }
 
     const handleSubmitSearch = (data) => {
@@ -132,8 +153,16 @@ const Menu = () => {
                         <NavLink
                             to="/adoption"
                             activeClassName="active"
+                            onClick={handleRemoveNotification}
                         >
-                            <Ballot />
+                            <Badge
+                                variant="dot"
+                                color="primary"
+                                invisible={!NewChild}
+                            >
+                                <Ballot />
+                            </Badge>
+
                             Adoção
                         </NavLink>
 
@@ -142,7 +171,7 @@ const Menu = () => {
                             activeClassName="active"
                         >
                             <HourglassFull />
-                            Pedidos
+                            Pedidos de adoção
                         </NavLink> */}
 
                         <NavLink

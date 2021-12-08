@@ -53,6 +53,8 @@ const AuthOperations = {
         try {
             localStorage.removeItem(`@${Storage.project}:accessToken`);
 
+            localStorage.removeItem(`@${Storage.project}:lastChildren`);
+
             Toast.showSuccess('Logout feito com sucesso');
 
             return {};

@@ -10,6 +10,10 @@ const ChildActions = {
     SetSuccess: (payload) => ({
         type: ChildTypes.SET_CHILD_SUCCESS,
         payload
+    }),
+    SetNew: (payload) => ({
+        type: ChildTypes.SET_CHILD_NEW,
+        payload
     })
 }
 

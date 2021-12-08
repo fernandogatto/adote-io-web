@@ -4,6 +4,8 @@ import ChildActions from './ChildActions';
 
 import Toast from '../../helpers/Toast';
 
+import Storage from '../../constants/Storage';
+
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
 const ChildOperations = {
@@ -23,6 +25,26 @@ const ChildOperations = {
         }
     },
 
+    getLastChildren: () => async () => {
+        try {
+            const response = await ChildService.getLastChildren();
+
+            const kids = response.data;
+
+            localStorage.setItem(`@${Storage.project}:lastChild`, JSON.stringify(kids[0]));
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
+
+    getLastChild: () => async () => {
+        return JSON.parse(localStorage.getItem(`@${Storage.project}:lastChild`));
+    },
+
     getChild: (id) => async () => {
         try {
             const response = await ChildService.getChild(id);
@@ -33,6 +55,10 @@ const ChildOperations = {
 
             throw error;
         }
+    },
+
+    setNewChild: (value) => async (dispatch) => {
+        dispatch(ChildActions.SetNew(value));
     },
 
     createChild: (data) => async () => {

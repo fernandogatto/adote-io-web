@@ -5,6 +5,10 @@ class ChildService {
         return Api.get(`/criancas/pesquisa?nome=${nome}&genero=${genero}&idadeMinima=${idadeMinima}&idadeMaxima=${idadeMaxima}&localizacao=${localizacao}`);
     }
 
+    getLastChildren() {
+        return Api.get(`/criancas/ultimas`);
+    }
+
     getChild(id) {
         return Api.get(`/criancas/${id}`);
     }

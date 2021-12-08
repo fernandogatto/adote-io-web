@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
     Box,
@@ -27,11 +27,11 @@ import {
 const Dashboard = () => {
     const dispatch = useDispatch();
 
-    const {
-        IsLoading: IsLoadingKids,
-        HasError: HasErrorKids,
-        Data: Kids
-    } = useSelector(state => state.Child);
+    const [kids, setKids] = useState([]);
+
+    const [isLoadingKids, setIsLoadingKids] = useState(true);
+
+    const [hasErrorKids, setHasErrorKids] = useState(false);
 
     const depoimentos = [
         {
@@ -58,9 +58,23 @@ const Dashboard = () => {
                 localizacao: '',
             };
 
-            await dispatch(ChildOperations.getChildren(search));
+            setIsLoadingKids(true);
+
+            setHasErrorKids(false);
+
+            let response = await dispatch(ChildOperations.getChildren(search));
+
+            response = response.slice(0, 3).map(item => item);
+
+            setKids(response);
+
+            setIsLoadingKids(false);
         } catch (err) {
             console.log('getKids - Dashboard', err);
+
+            setIsLoadingKids(false);
+
+            setHasErrorKids(true);
         }
     }
 
@@ -125,9 +139,9 @@ const Dashboard = () => {
                             title="Adoção"
                             linkDomain="/adoption/child"
                             linkSeeMore="/adoption"
-                            array={Kids}
-                            isLoading={IsLoadingKids}
-                            hasError={HasErrorKids}
+                            array={kids}
+                            isLoading={isLoadingKids}
+                            hasError={hasErrorKids}
                             onPress={getKids}
                         />
                     </Box>

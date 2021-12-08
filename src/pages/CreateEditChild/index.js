@@ -150,6 +150,9 @@ const CreateEditChild = ({ match }) => {
             setInputError({
                 nome: nome === '' ? true : false,
                 genero: genero === '' ? true : false,
+                saude: saude === '' ? true : false,
+                localizacao: localizacao === '' ? true : false,
+                link: link === '' ? true : false,
             });
 
             if (
