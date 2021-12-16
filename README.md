@@ -82,6 +82,24 @@ Sign in:
     width="800"
 />
 
+Dashboard:
+
+<img
+    alt="Dashboard"
+    title="Dashboard"
+    src=".github/dashboard.png"
+    width="800"
+/>
+
+Adoption:
+
+<img
+    alt="Adoption"
+    title="Adoption"
+    src=".github/kids.png"
+    width="800"
+/>
+
 ## 👍 Contribute <a name="contribute"/>
 
 - Fork this repository.
