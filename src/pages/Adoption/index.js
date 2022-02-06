@@ -16,12 +16,12 @@ import {
     Typography,
     Tooltip,
     IconButton,
+    CircularProgress,
 } from '@mui/material';
 
 import {
     Add,
-    // Create,
-    // Delete,
+    Favorite,
 } from '@mui/icons-material';
 
 import { useAuth } from '../../common/contexts/Auth';
@@ -33,6 +33,8 @@ import CardLoading from '../../components/Loadings/CardLoading';
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
 import ChildOperations from '../../common/rules/Child/ChildOperations';
+
+import AdoptionOperations from '../../common/rules/Adoption/AdoptionOperations';
 
 import {
     ContainerAdoption,
@@ -53,7 +55,9 @@ const Adoption = () => {
 
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
-    const [deletedItem, setDeletedItem] = useState({});
+    const [selectedItem, setSelectedItem] = useState({});
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const getKids = async () => {
         try {
@@ -71,27 +75,6 @@ const Adoption = () => {
         }
     }
 
-    const handleConfirmDelete = (id, index) => {
-        setDeletedItem({
-            id,
-            index,
-        });
-
-        setOpenConfirmDialog(true);
-    }
-
-    const handleDelete = async (item) => {
-        let _items = [...Kids];
-
-        _items.splice(item.index, 1);
-
-        // await dispatch(ChildOperations.deleteChildById(item.id));
-
-        setDeletedItem({});
-
-        getKids();
-    }
-
     const calculateAge = (value) => {
         const _value = format(new Date(value), 'dd/MM/yyyy');
 
@@ -102,6 +85,28 @@ const Adoption = () => {
         return age;
     }
 
+    const handleConfirmAdoption = (child_id) => {
+        setSelectedItem({
+            id: child_id,
+        });
+
+        setOpenConfirmDialog(true);
+    }
+
+    const handleSubmitAdoptionRequest = async (child_id) => {
+        try {
+            setIsSubmitting(true);
+
+            await dispatch(AdoptionOperations.createAdoptionRequest(child_id));
+
+            setIsSubmitting(false);
+        } catch (err) {
+            console.log('handleSubmitAdoptionRequest', err);
+
+            setIsSubmitting(false);
+        }
+    }
+
     return (
         <ContainerAdoption>
             <Menu />
@@ -109,17 +114,17 @@ const Adoption = () => {
             <ConfirmDialog
                 dialogOpen={openConfirmDialog}
                 handleCloseDialog={() => {
-                    setDeletedItem({});
+                    setSelectedItem({});
 
                     setOpenConfirmDialog(false);
                 }}
                 handleConfirmAction={() => {
-                    handleDelete(deletedItem);
+                    handleSubmitAdoptionRequest(selectedItem.id);
 
                     setOpenConfirmDialog(false);
                 }}
-                title="Excluir Criança"
-                message="Tem certeza que deseja excluir este item?"
+                title="Adotar criança"
+                message="Tem certeza que deseja adotar esta criança?"
             />
 
             <Box className="container-page">
@@ -201,35 +206,35 @@ const Adoption = () => {
                                             size="small"
                                             color="primary"
                                             component={Link}
+                                            disabled={isSubmitting}
                                             to={`/adoption/child/${item.id}`}
                                         >
                                             Ver detalhes
                                         </Button>
 
-                                        {/* {user.perfil === 'ADMINISTRADOR' && (
+                                        {user.perfil === 'PESSOA' && (
                                             <Box className="container-button">
-                                                <Tooltip title="Editar" arrow>
-                                                    <IconButton
-                                                        aria-label="Editar"
-                                                        size="small"
-                                                        component={Link}
-                                                        to={`/adoption/edit/child/${item.id}`}
-                                                    >
-                                                        <Create />
-                                                    </IconButton>
-                                                </Tooltip>
+                                                <Box className="wrapper">
+                                                    {isSubmitting && selectedItem.id === item.id && (
+                                                        <CircularProgress
+                                                            className="circular-progress"
+                                                            style={{ width: 24, height: 24 }}
+                                                        />
+                                                    )}
+                                                </Box>
 
-                                                <Tooltip title="Excluir" arrow>
+                                                <Tooltip title="Solicitar adoção" arrow>
                                                     <IconButton
-                                                        aria-label="Excluir"
+                                                        aria-label="Solicitar adoção"
                                                         size="small"
-                                                        onClick={() => handleConfirmDelete(item.id, index)}
+                                                        disabled={isSubmitting}
+                                                        onClick={() => handleConfirmAdoption(item.id)}
                                                     >
-                                                        <Delete />
+                                                        <Favorite />
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
-                                        )} */}
+                                        )}
                                     </CardActions>
                                 </Card>
                             </ItemCard>

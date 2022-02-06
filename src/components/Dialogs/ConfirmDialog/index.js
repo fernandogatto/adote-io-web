@@ -47,6 +47,7 @@ const ConfirmDialog = ({
                     <Button
                         color="primary"
                         onClick={handleCloseDialog}
+                        className="custom-button"
                     >
                         Cancelar
                     </Button>
@@ -55,6 +56,7 @@ const ConfirmDialog = ({
                         variant="contained"
                         color="primary"
                         onClick={handleConfirmAction}
+                        className="custom-button"
                     >
                         Sim
                     </Button>

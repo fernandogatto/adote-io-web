@@ -4,7 +4,7 @@ import Toast from '../../helpers/Toast';
 
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
-const ChildOperations = {
+const AdoptionOperations = {
     getChildAdoptionRequests: (child_id) => async () => {
         try {
             const response = await AdoptionService.getChildAdoptionRequests(child_id);
@@ -45,7 +45,7 @@ const ChildOperations = {
         try {
             const response = await AdoptionService.createAdoptionRequest(child_id);
 
-            Toast.showSuccess('Solicitação de adoção criado com sucesso');
+            Toast.showSuccess('Solicitação de adoção criada com sucesso');
 
             return response.data;
         } catch (error) {
@@ -84,4 +84,4 @@ const ChildOperations = {
     },
 }
 
-export default ChildOperations;
+export default AdoptionOperations;

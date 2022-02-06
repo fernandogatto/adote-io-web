@@ -51,6 +51,18 @@ export const ItemCard = styled.div`
 
         .container-button {
             margin-left: auto;
+
+            .wrapper {
+                position: relative;
+
+                .circular-progress {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: 6px;
+                    margin-left: -12px;
+                }
+            }
         }
     }
 

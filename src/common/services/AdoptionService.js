@@ -18,7 +18,7 @@ class AdoptionService {
     }
 
     updateAdoptionRequestStatus(child_id, person_id, status) {
-        return Api.put(`/adocoes/criancas/${child_id}/pessoas/${person_id}/status/${status}`);
+        return Api.patch(`/adocoes/criancas/${child_id}/pessoas/${person_id}/status/${status}`);
     }
 
     deleteConsolidatedAdoption(child_id, person_id) {

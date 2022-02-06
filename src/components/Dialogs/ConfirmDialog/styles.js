@@ -14,6 +14,10 @@ export const DialogActionContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 
+    .custom-button + .custom-button {
+        margin-left: 8px;
+    }
+
     .wrapper {
         position: relative;
 
