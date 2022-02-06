@@ -65,7 +65,7 @@ export const ItemCard = styled.div`
             }
 
             .favorite {
-                color: red;
+                color: #EC4A56;
             }
         }
     }

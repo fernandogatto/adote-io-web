@@ -75,6 +75,13 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/adoption-consolidated"
+                    component={Modules.AdoptionConsolidated}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 
 import {
@@ -18,7 +16,7 @@ import {
     CircularProgress,
 } from '@mui/material';
 
-import { ArrowBack, Check, Delete } from '@mui/icons-material';
+import {  Check, Delete } from '@mui/icons-material';
 
 import Menu from '../../components/Menu';
 
@@ -33,12 +31,10 @@ import {
     ContentAdoptionRequests,
 } from './styles';
 
-const AdoptionRequests = ({ match }) => {
-    const { id } = match.params;
-
+const AdoptionConsolidated = () => {
     const dispatch = useDispatch();
 
-    const [requests, setRequests] = useState([]);
+    const [adoptions, setAdoptions] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -51,18 +47,20 @@ const AdoptionRequests = ({ match }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        getAdoptionRequest();
+        getConsolidatedAdoptions();
     }, []);
 
-    const getAdoptionRequest = async () => {
+    const getConsolidatedAdoptions = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(AdoptionOperations.getChildAdoptionRequests(id));
+            const response = await dispatch(AdoptionOperations.getConsolidatedAdoptions());
 
-            setRequests(response);
+            setAdoptions(response);
+
+            console.log('adocoes', response)
 
             setIsLoading(false);
         } catch (err) {
@@ -74,26 +72,25 @@ const AdoptionRequests = ({ match }) => {
         }
     }
 
-    const handleConfirmRequest = (criancaId, pessoaId, status, index) => {
+    const handleConfirmRequest = (criancaId, pessoaId, index) => {
         setSelectedItem({
             criancaId,
             pessoaId,
-            status,
             index,
         });
 
         setOpenConfirmDialog(true);
     }
 
-    const handleUpdateAdoptionRequestStatus = async ({ criancaId, pessoaId, status, index }) => {
+    const handleDeleteConsolidatedAdoption = async ({ criancaId, pessoaId, status, index }) => {
         try {
-            let items = [...requests];
+            let items = [...adoptions];
 
-            setRequests(items);
+            setAdoptions(items);
 
             setIsSubmitting(true);
 
-            await dispatch(AdoptionOperations.updateAdoptionRequestStatus(criancaId, pessoaId, status));
+            await dispatch(AdoptionOperations.deleteConsolidatedAdoption(criancaId, pessoaId));
 
             setIsSubmitting(false);
 
@@ -101,7 +98,7 @@ const AdoptionRequests = ({ match }) => {
 
             setSelectedItem({});
         } catch (err) {
-            console.log('handleUpdateAdoptionRequestStatus', err);
+            console.log('handleDeleteConsolidatedAdoption', err);
 
             setIsSubmitting(false);
         }
@@ -114,7 +111,7 @@ const AdoptionRequests = ({ match }) => {
     }
 
     const handleConfirmDialogAction = () => {
-        handleUpdateAdoptionRequestStatus(selectedItem);
+        handleDeleteConsolidatedAdoption(selectedItem);
 
         setOpenConfirmDialog(false);
     }
@@ -127,24 +124,14 @@ const AdoptionRequests = ({ match }) => {
                 dialogOpen={openConfirmDialog}
                 handleCloseDialog={handleCloseDialog}
                 handleConfirmAction={handleConfirmDialogAction}
-                title={selectedItem.status === 'APROVADO' ? "Aprovar solicitação" : "Cancelar solicitação"}
-                message="Tem certeza que deseja seguir?"
+                title={"Cancelar adoção"}
+                message="Tem certeza que deseja cancelar esta adoção?"
             />
 
             <Box className="container-page">
                 <ContentAdoptionRequests>
-                    <Box className="container-back-page">
-                        <Tooltip title="Voltar" arrow>
-                            <IconButton
-                                aria-label="Voltar página"
-                                component={Link}
-                                to="/adoption"
-                            >
-                                <ArrowBack />
-                            </IconButton>
-                        </Tooltip>
-
-                        <h1>Solicitações de Adoção</h1>
+                    <Box className="container-header-page">
+                        <h1>Adoções consolidadas</h1>
                     </Box>
 
                     <TableContainer component={Paper}>
@@ -171,13 +158,13 @@ const AdoptionRequests = ({ match }) => {
                                     colunas={3}
                                     isLoading={isLoading}
                                     hasError={hasError}
-                                    onPress={getAdoptionRequest}
+                                    onPress={getConsolidatedAdoptions}
                                 />
 
                                 {!isLoading &&
                                     !hasError &&
-                                    requests &&
-                                    requests.length === 0 && (
+                                    adoptions &&
+                                    adoptions.length === 0 && (
                                         <TableRow>
                                             <TableCell colSpan={3} align="center">
                                                 Nenhum resultado encontrado
@@ -187,9 +174,9 @@ const AdoptionRequests = ({ match }) => {
 
                                 {!isLoading &&
                                     !hasError &&
-                                    requests &&
-                                    requests.length > 0 &&
-                                    requests.map((item, index) => (
+                                    adoptions &&
+                                    adoptions.length > 0 &&
+                                    adoptions.map((item, index) => (
                                         <TableRow key={item.pessoaId}>
                                             <TableCell align="center">
                                                 {item.nomeSolicitante}
@@ -204,28 +191,6 @@ const AdoptionRequests = ({ match }) => {
                                                     <Box className="wrapper">
                                                         {isSubmitting &&
                                                             selectedItem.pessoaId === item.pessoaId &&
-                                                            selectedItem.status === 'APROVADO' && (
-                                                                <CircularProgress
-                                                                    className="circular-progress"
-                                                                    style={{ width: 24, height: 24 }}
-                                                                />
-                                                        )}
-
-                                                        <Tooltip title="Aprovar" arrow>
-                                                            <IconButton
-                                                                aria-label="Aprovar"
-                                                                size="small"
-                                                                onClick={() => handleConfirmRequest(item.criancaId, item.pessoaId, 'APROVADO', index)}
-                                                                disabled={isSubmitting}
-                                                            >
-                                                                <Check />
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                    </Box>
-
-                                                    <Box className="wrapper">
-                                                        {isSubmitting &&
-                                                            selectedItem.pessoaId === item.pessoaId &&
                                                             selectedItem.status === 'CANCELADO' && (
                                                                 <CircularProgress
                                                                     className="circular-progress"
@@ -237,7 +202,7 @@ const AdoptionRequests = ({ match }) => {
                                                             <IconButton
                                                                 aria-label="Cancelar"
                                                                 size="small"
-                                                                onClick={() => handleConfirmRequest(item.criancaId, item.pessoaId, 'CANCELADO', index)}
+                                                                onClick={() => handleConfirmRequest(item.criancaId, item.pessoaId, index)}
                                                                 disabled={isSubmitting}
                                                             >
                                                                 <Delete />
@@ -257,4 +222,4 @@ const AdoptionRequests = ({ match }) => {
     );
 }
 
-export default AdoptionRequests;
+export default AdoptionConsolidated;

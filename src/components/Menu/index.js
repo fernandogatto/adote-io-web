@@ -16,6 +16,7 @@ import {
 import {
     Dashboard,
     Ballot,
+    Check,
     QuestionMark,
     Forum,
     ExitToApp,
@@ -164,6 +165,16 @@ const Menu = () => {
 
                             Adoção
                         </NavLink>
+
+                        {user.perfil === 'ADMINISTRADOR' && (
+                            <NavLink
+                                to="/adoption-consolidated"
+                                activeClassName="active"
+                            >
+                                <Check />
+                                Adoções consolidadas
+                            </NavLink>
+                        )}
 
                         <NavLink
                             to="/adoption-process"
