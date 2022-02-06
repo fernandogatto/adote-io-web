@@ -13,6 +13,10 @@ class AdoptionService {
         return Api.get(`/adocoes/consolidadas`);
     }
 
+    getChildrenRequestedByUserLogged() {
+        return Api.get(`/adocoes`);
+    }
+
     createAdoptionRequest(child_id) {
         return Api.post(`/adocoes/criancas/${child_id}`);
     }

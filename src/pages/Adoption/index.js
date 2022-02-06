@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -54,13 +54,29 @@ const Adoption = () => {
 
     const { user } = useAuth();
 
-    console.log('user', user)
+    const [childrenRequested, setChildrenRequested] = useState([]);
 
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
     const [selectedItem, setSelectedItem] = useState({});
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (user.perfil === 'PESSOA') {
+            getChildrenRequested();
+        }
+    }, []);
+
+    const getChildrenRequested = async () => {
+        try {
+            const response = await dispatch(AdoptionOperations.getChildrenRequestedByUserLogged());
+
+            setChildrenRequested(response);
+        } catch (err) {
+            console.log('getChildrenRequested', err);
+        }
+    }
 
     const getKids = async () => {
         try {
@@ -245,10 +261,12 @@ const Adoption = () => {
                                                     <IconButton
                                                         aria-label="Solicitar adoção"
                                                         size="small"
-                                                        disabled={isSubmitting}
+                                                        disabled={isSubmitting || childrenRequested.find(value => value === item.id)}
                                                         onClick={() => handleConfirmAdoption(item.id)}
                                                     >
-                                                        <Favorite />
+                                                        <Favorite
+                                                            className={childrenRequested.find(value => value === item.id) && "favorite"}
+                                                        />
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>

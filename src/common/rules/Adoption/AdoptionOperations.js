@@ -41,6 +41,18 @@ const AdoptionOperations = {
         }
     },
 
+    getChildrenRequestedByUserLogged: () => async () => {
+        try {
+            const response = await AdoptionService.getChildrenRequestedByUserLogged();
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
+
     createAdoptionRequest: (child_id) => async () => {
         try {
             const response = await AdoptionService.createAdoptionRequest(child_id);

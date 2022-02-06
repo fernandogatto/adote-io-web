@@ -63,6 +63,10 @@ export const ItemCard = styled.div`
                     margin-left: -12px;
                 }
             }
+
+            .favorite {
+                color: red;
+            }
         }
     }
 
