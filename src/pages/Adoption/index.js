@@ -22,6 +22,7 @@ import {
 import {
     Add,
     Favorite,
+    Visibility,
 } from '@mui/icons-material';
 
 import { useAuth } from '../../common/contexts/Auth';
@@ -52,6 +53,8 @@ const Adoption = () => {
     } = useSelector(state => state.Child);
 
     const { user } = useAuth();
+
+    console.log('user', user)
 
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
@@ -211,6 +214,21 @@ const Adoption = () => {
                                         >
                                             Ver detalhes
                                         </Button>
+
+                                        {user.perfil === 'ADMINISTRADOR' && (
+                                            <Tooltip title="Ver solicitações de adoção" arrow>
+                                                <Box className="container-button">
+                                                    <IconButton
+                                                        aria-label="Ver solicitações de adoção"
+                                                        size="small"
+                                                        component={Link}
+                                                        to={`/adoption/request/child/${item.id}`}
+                                                    >
+                                                        <Visibility />
+                                                    </IconButton>
+                                                </Box>
+                                            </Tooltip>
+                                        )}
 
                                         {user.perfil === 'PESSOA' && (
                                             <Box className="container-button">

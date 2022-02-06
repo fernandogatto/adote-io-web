@@ -20,7 +20,7 @@ import {
     CircularProgress,
 } from '@mui/material';
 
-import { ArrowBack, DeleteOutlined } from '@mui/icons-material';
+import { ArrowBack, Delete } from '@mui/icons-material';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -491,7 +491,7 @@ const CreateEditChild = ({ match }) => {
                                                 <Box className="actions">
                                                     <Tooltip title="Excluir" arrow>
                                                         <IconButton onClick={() => handleConfirmDelete(item.id, index)}>
-                                                            <DeleteOutlined />
+                                                            <Delete />
                                                         </IconButton>
                                                     </Tooltip>
                                                 </Box>

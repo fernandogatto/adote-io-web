@@ -16,7 +16,6 @@ import {
 import {
     Dashboard,
     Ballot,
-    // HourglassFull,
     QuestionMark,
     Forum,
     ExitToApp,
@@ -165,14 +164,6 @@ const Menu = () => {
 
                             Adoção
                         </NavLink>
-
-                        {/* <NavLink
-                            to="/adoption-requests"
-                            activeClassName="active"
-                        >
-                            <HourglassFull />
-                            Pedidos de adoção
-                        </NavLink> */}
 
                         <NavLink
                             to="/adoption-process"
