@@ -28,11 +28,11 @@ const ViewLoading = ({ isLoading, hasError, onPress }) => {
 
             {isLoading && (
                 <Box className="container-info">
-                    <Box className="container-image">
+                    <Box className="item-image">
                         <Skeleton variant="rectangular" width={'100%'} height={345} />
                     </Box>
 
-                    <Box className="container-description">
+                    <Box className="item-description">
                         <Box className="container-title">
                             <Skeleton variant="rectangular" width={200} height={30} />
                         </Box>

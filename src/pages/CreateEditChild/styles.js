@@ -72,6 +72,7 @@ export const ContentCreateEditChild = styled.div`
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            margin-top: 32px;
 
             .wrapper {
                 position: relative;
@@ -84,6 +85,43 @@ export const ContentCreateEditChild = styled.div`
                     margin-left: -12px;
                 }
             }
+        }
+    }
+`;
+
+export const SelectedItem = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 2px solid #ddd;
+    padding: 8px 0;
+
+    .item-title {
+        display: flex;
+        align-items: center;
+
+        img {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 16px;
+        }
+
+        p {
+            color: #929FB1;
+        }
+    }
+
+    button {
+        min-width: 40px;
+
+        svg {
+            height: 100%;
+
+            display: flex;
+            align-items: center;
         }
     }
 `;

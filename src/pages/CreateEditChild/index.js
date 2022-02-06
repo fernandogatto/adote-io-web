@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 import {
     Box,
@@ -20,7 +20,7 @@ import {
     CircularProgress,
 } from '@mui/material';
 
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, DeleteOutlined } from '@mui/icons-material';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -29,9 +29,14 @@ import DatePicker from '@mui/lab/DatePicker';
 import {
     ContainerCreateEditChild,
     ContentCreateEditChild,
+    SelectedItem,
 } from './styles';
 
 import Menu from '../../components/Menu';
+
+import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
+
+import BrothersDialog from '../../components/Dialogs/BrothersDialog';
 
 import FormLoading from '../../components/Loadings/FormLoading';
 
@@ -43,6 +48,12 @@ const CreateEditChild = ({ match }) => {
     const dispatch = useDispatch();
 
     const history = useHistory();
+
+    const [children, setChildren] = useState([]);
+
+    const [isLoadingChildren, setIsLoadingChildren] = useState(false);
+
+    const [hasErrorChildren, setHasErrorChildren] = useState(false);
 
     const [child, setChild] = useState({});
 
@@ -77,11 +88,39 @@ const CreateEditChild = ({ match }) => {
         link: false,
     });
 
+    const [irmaos, setIrmaos] = useState([]);
+
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+    const [deletedItem, setDeletedItem] = useState({});
+
     useEffect(() => {
+        getAllChildren();
+
         if (id) {
             getChild();
         }
     }, []);
+
+    const getAllChildren = async () => {
+        try {
+            setIsLoadingChildren(true);
+
+            setHasErrorChildren(false);
+
+            const response = await dispatch(ChildOperations.getAllChildren());
+
+            setChildren(response);
+
+            setIsLoadingChildren(false);
+        } catch (err) {
+            console.log('getAllChildren', err);
+
+            setIsLoadingChildren(false);
+
+            setHasErrorChildren(true);
+        }
+    }
 
     const getChild = async () => {
         try {
@@ -136,6 +175,39 @@ const CreateEditChild = ({ match }) => {
         setInputDateData({ ...inputDateData, [name]: format(new Date(value), "MM/dd/yyyy") });
     }
 
+    const handleConfirmDelete = (id, index) => {
+        setDeletedItem({
+            id,
+            index,
+        });
+
+        setOpenConfirmDialog(true);
+    }
+
+    const handleDelete = async (item) => {
+        let items = [...irmaos];
+
+        setIrmaos(items);
+
+        items.splice(item.index, 1);
+
+        setDeletedItem({});
+    }
+
+    const handleCloseDialog = () => {
+        setDeletedItem({});
+
+        setOpenConfirmDialog(false);
+    }
+
+    const handleConfirmDialogAction = () => {
+        handleDelete(deletedItem);
+
+        setOpenConfirmDialog(false);
+    }
+
+    console.log('irmaos', irmaos)
+
     const handleSubmit = async () => {
         try {
             const {
@@ -164,6 +236,10 @@ const CreateEditChild = ({ match }) => {
                 genero !== ''
 
             ) {
+                const _irmaos = irmaos && irmaos.length > 0
+                    ? irmaos.map(item => item.id)
+                    : [];
+
                 const data = {
                     nome,
                     localizacao,
@@ -176,6 +252,7 @@ const CreateEditChild = ({ match }) => {
                             link: link,
                         }
                     ],
+                    irmaosASeremCadastrados: _irmaos,
                 };
 
                 setIsSubmitting(true);
@@ -198,6 +275,14 @@ const CreateEditChild = ({ match }) => {
     return (
         <ContainerCreateEditChild>
             <Menu />
+
+            <ConfirmDialog
+                dialogOpen={openConfirmDialog}
+                handleCloseDialog={handleCloseDialog}
+                handleConfirmAction={handleConfirmDialogAction}
+                title="Excluir irmão"
+                message="Tem certeza que deseja excluir este item?"
+            />
 
             <Box className="container-page">
                 <ContentCreateEditChild>
@@ -375,6 +460,43 @@ const CreateEditChild = ({ match }) => {
                                             className="input"
                                             helperText={inputError.link && 'Campo obrigatório'}
                                         />
+                                    </Box>
+                                </Box>
+
+                                <Box className="section-form container-box">
+                                    <Box className="item-box">
+                                        <BrothersDialog
+                                            selectedArray={irmaos}
+                                            setSelectedArray={setIrmaos}
+                                            isLoading={isLoadingChildren}
+                                            hasError={hasErrorChildren}
+                                            data={children}
+                                            getData={getAllChildren}
+                                            handleConfirmAction={() => {}}
+                                            title="Selecionar irmãos"
+                                            confirm="Salvar"
+                                        />
+
+                                        {irmaos && irmaos.length > 0 && irmaos.map((item, index) => (
+                                            <SelectedItem key={item.id}>
+                                                <Box className="item-title">
+                                                    <img
+                                                        src={item.conteudo[0].link}
+                                                        alt={item.nome}
+                                                    />
+
+                                                    <p>{item.nome}</p>
+                                                </Box>
+
+                                                <Box className="actions">
+                                                    <Tooltip title="Excluir" arrow>
+                                                        <IconButton onClick={() => handleConfirmDelete(item.id, index)}>
+                                                            <DeleteOutlined />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Box>
+                                            </SelectedItem>
+                                        ))}
                                     </Box>
                                 </Box>
 

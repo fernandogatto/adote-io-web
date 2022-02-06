@@ -1,6 +1,10 @@
 import Api from '../helpers/Api';
 
 class ChildService {
+    getAllChildren() {
+        return Api.get(`/criancas`);
+    }
+
     getChildren({ nome, genero, idadeMinima, idadeMaxima, localizacao }) {
         return Api.get(`/criancas/pesquisa?nome=${nome}&genero=${genero}&idadeMinima=${idadeMinima}&idadeMaxima=${idadeMaxima}&localizacao=${localizacao}`);
     }

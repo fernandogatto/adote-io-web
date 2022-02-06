@@ -9,6 +9,18 @@ import Storage from '../../constants/Storage';
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
 const ChildOperations = {
+    getAllChildren: () => async () => {
+        try {
+            const response = await ChildService.getAllChildren();
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
+
     getChildren: (data) => async (dispatch) => {
         dispatch(ChildActions.SetLoading());
 

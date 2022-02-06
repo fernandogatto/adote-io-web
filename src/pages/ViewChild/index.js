@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 import {
     Box,
     Tooltip,
     IconButton,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
 } from '@mui/material';
 
 import { ArrowBack } from '@mui/icons-material';
@@ -23,10 +29,13 @@ import ChildOperations from '../../common/rules/Child/ChildOperations';
 import {
     ContainerViewChild,
     ContentViewChild,
+    ItemCard,
 } from './styles';
 
 const ViewChild = ({ match }) => {
     const { id } = match.params;
+
+    const history = useHistory();
 
     const dispatch = useDispatch();
 
@@ -40,7 +49,7 @@ const ViewChild = ({ match }) => {
 
     useEffect(() => {
         getChild();
-    }, []);
+    }, [id]);
 
     const getChild = async () => {
         try {
@@ -78,7 +87,7 @@ const ViewChild = ({ match }) => {
                             <IconButton
                                 aria-label="Voltar página"
                                 component={Link}
-                                to="/adoption"
+                                onClick={() => history.goBack()}
                             >
                                 <ArrowBack />
                             </IconButton>
@@ -95,7 +104,7 @@ const ViewChild = ({ match }) => {
 
                     {!isLoading && !hasError && child && child.nome !== '' && (
                         <Box className="container-info">
-                            <Box className="container-image">
+                            <Box className="item-image">
                                 {images && images.length > 0 && images.map(item => (
                                     <img
                                         key={item.link}
@@ -105,7 +114,7 @@ const ViewChild = ({ match }) => {
                                 ))}
                             </Box>
 
-                            <Box className="container-description">
+                            <Box className="item-description">
                                 <Box className="container-title">
                                     <h2>{child.nome}</h2>
                                 </Box>
@@ -119,6 +128,52 @@ const ViewChild = ({ match }) => {
 
                                     <p>Localização: {child.localizacao}</p>
                                 </Box>
+                            </Box>
+
+                            <Box className="item-footer">
+                                {child.irmaos &&  child.irmaos.length > 0 && (
+                                    <Box className="container-registry">
+                                        <Box className="container-title">
+                                            <h3>Irmãos</h3>
+                                        </Box>
+
+                                        <Box className="container-items">
+                                            {child.irmaos.map(item => (
+                                                <ItemCard key={item.id}>
+                                                    <Card className="card-container">
+                                                        <CardMedia
+                                                            image={item.conteudos[0].link}
+                                                            title={item.nome}
+                                                            className="image-item"
+                                                        />
+
+                                                        <CardContent>
+                                                            <Typography
+                                                                gutterBottom
+                                                                variant="h6"
+                                                                component="h2"
+                                                            >
+                                                                {item.nome}
+                                                            </Typography>
+                                                        </CardContent>
+
+                                                        <CardActions>
+                                                            <Button
+                                                                aria-label="Ver detalhes da criança"
+                                                                size="small"
+                                                                color="primary"
+                                                                component={Link}
+                                                                to={`/adoption/child/${item.id}`}
+                                                            >
+                                                                Ver detalhes
+                                                            </Button>
+                                                        </CardActions>
+                                                    </Card>
+                                                </ItemCard>
+                                            ))}
+                                        </Box>
+                                    </Box>
+                                )}
                             </Box>
                         </Box>
                     )}
