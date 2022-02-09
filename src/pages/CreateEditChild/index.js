@@ -16,6 +16,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    Checkbox,
     Button,
     CircularProgress,
 } from '@mui/material';
@@ -80,12 +81,12 @@ const CreateEditChild = ({ match }) => {
         dataNascimento: new Date(),
     });
 
+    const [recemNascido, setRecemNascido] = useState(false);
+
     const [inputError, setInputError] = useState({
         nome: false,
         genero: false,
-        saude: false,
         localizacao: false,
-        link: false,
     });
 
     const [irmaos, setIrmaos] = useState([]);
@@ -206,8 +207,6 @@ const CreateEditChild = ({ match }) => {
         setOpenConfirmDialog(false);
     }
 
-    console.log('irmaos', irmaos)
-
     const handleSubmit = async () => {
         try {
             const {
@@ -226,15 +225,12 @@ const CreateEditChild = ({ match }) => {
             setInputError({
                 nome: nome === '' ? true : false,
                 genero: genero === '' ? true : false,
-                saude: saude === '' ? true : false,
                 localizacao: localizacao === '' ? true : false,
-                link: link === '' ? true : false,
             });
 
             if (
                 nome !== '' &&
                 genero !== ''
-
             ) {
                 const _irmaos = irmaos && irmaos.length > 0
                     ? irmaos.map(item => item.id)
@@ -246,6 +242,7 @@ const CreateEditChild = ({ match }) => {
                     genero,
                     saude,
                     dataNascimento: format(new Date(dataNascimento), "yyyy-MM-dd"),
+                    recemNascido,
                     conteudos: [
                         {
                             tipo: 'Imagem',
@@ -386,6 +383,17 @@ const CreateEditChild = ({ match }) => {
                                                 )}
                                             />
                                         </LocalizationProvider>
+
+                                        <Box className="input flex">
+                                            <Checkbox
+                                                checked={recemNascido}
+                                                color="primary"
+                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                onChange={() => setRecemNascido(!recemNascido)}
+                                            />
+
+                                            <p>Recém nascido</p>
+                                        </Box>
                                     </Box>
 
                                     <Box className="item-flex">
@@ -405,8 +413,6 @@ const CreateEditChild = ({ match }) => {
                                         />
 
                                         <FormControl
-                                            required
-                                            error={inputError.saude}
                                             variant="outlined"
                                             fullWidth
                                             className="input"
@@ -447,8 +453,6 @@ const CreateEditChild = ({ match }) => {
                                         </FormControl>
 
                                         <TextField
-                                            required
-                                            error={inputError.link}
                                             variant="outlined"
                                             type="text"
                                             name="link"

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { format } from 'date-fns';
+import { format, differenceInYears, parse } from 'date-fns';
 
 import {
     Box,
@@ -76,6 +76,16 @@ const ViewChild = ({ match }) => {
         }
     }
 
+    const calculateAge = (value) => {
+        const _value = format(new Date(value), 'dd/MM/yyyy');
+
+        const date = parse(_value, 'dd/MM/yyyy', new Date());
+
+        const age = differenceInYears(new Date(), date);
+
+        return age;
+    }
+
     return (
         <ContainerViewChild>
             <Menu />
@@ -127,6 +137,8 @@ const ViewChild = ({ match }) => {
                                     <p>Saúde: {child.saude}</p>
 
                                     <p>Localização: {child.localizacao}</p>
+
+                                    <p>Recém nascido: {child.recemNascido ? 'Sim' : 'Não'}</p>
                                 </Box>
                             </Box>
 
@@ -154,6 +166,14 @@ const ViewChild = ({ match }) => {
                                                                 component="h2"
                                                             >
                                                                 {item.nome}
+                                                            </Typography>
+
+                                                            <Typography
+                                                                variant="body2"
+                                                                color="textSecondary"
+                                                                component="p"
+                                                            >
+                                                                Idade: {calculateAge(item.dataNascimento)}
                                                             </Typography>
                                                         </CardContent>
 

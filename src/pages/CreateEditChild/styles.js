@@ -68,6 +68,15 @@ export const ContentCreateEditChild = styled.div`
             }
         }
 
+        .flex {
+            display: flex;
+            align-items: center;
+
+            p {
+                margin-left: 4px;
+            }
+        }
+
         .grid-button {
             display: flex;
             justify-content: flex-end;
