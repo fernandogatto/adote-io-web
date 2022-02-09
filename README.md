@@ -99,12 +99,39 @@ Dashboard:
     width="800"
 />
 
+Search:
+
+<img
+    alt="Search"
+    title="Search"
+    src=".github/search.png"
+    width="800"
+/>
+
 Adoption:
 
 <img
     alt="Adoption"
     title="Adoption"
-    src=".github/kids.png"
+    src=".github/children.png"
+    width="800"
+/>
+
+Create child:
+
+<img
+    alt="Create child"
+    title="Create child"
+    src=".github/form.png"
+    width="800"
+/>
+
+View child:
+
+<img
+    alt="View child"
+    title="View child"
+    src=".github/child.png"
     width="800"
 />
 
