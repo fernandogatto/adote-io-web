@@ -63,10 +63,10 @@ const Adoption = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        if (user.perfil === 'PESSOA') {
+        if (user && user.perfil === 'PESSOA') {
             getChildrenRequested();
         }
-    }, []);
+    }, [user]);
 
     const getChildrenRequested = async () => {
         try {

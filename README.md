@@ -73,6 +73,14 @@ yarn start
 
 ## 💻 Project <a name="project"/>
 
+To log in application:
+
+```bash
+# Admin
+admin@adote.io
+teste123
+```
+
 Sign in:
 
 <img

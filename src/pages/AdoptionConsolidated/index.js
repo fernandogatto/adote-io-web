@@ -27,7 +27,7 @@ import TableLoading from '../../components/Loadings/TableLoading';
 import AdoptionOperations from '../../common/rules/Adoption/AdoptionOperations';
 
 import {
-    ContainerAdoptionRequests,
+    ContainerAdoptionConsolidated,
     ContentAdoptionRequests,
 } from './styles';
 
@@ -59,8 +59,6 @@ const AdoptionConsolidated = () => {
             const response = await dispatch(AdoptionOperations.getConsolidatedAdoptions());
 
             setAdoptions(response);
-
-            console.log('adocoes', response)
 
             setIsLoading(false);
         } catch (err) {
@@ -117,7 +115,7 @@ const AdoptionConsolidated = () => {
     }
 
     return (
-        <ContainerAdoptionRequests>
+        <ContainerAdoptionConsolidated>
             <Menu />
 
             <ConfirmDialog
@@ -143,6 +141,10 @@ const AdoptionConsolidated = () => {
                                     </TableCell>
 
                                     <TableCell align="center">
+                                        Criança
+                                    </TableCell>
+
+                                    <TableCell align="center">
                                         Data
                                     </TableCell>
 
@@ -155,7 +157,7 @@ const AdoptionConsolidated = () => {
                             <TableBody>
                                 <TableLoading
                                     linhas={2}
-                                    colunas={3}
+                                    colunas={4}
                                     isLoading={isLoading}
                                     hasError={hasError}
                                     onPress={getConsolidatedAdoptions}
@@ -166,7 +168,7 @@ const AdoptionConsolidated = () => {
                                     adoptions &&
                                     adoptions.length === 0 && (
                                         <TableRow>
-                                            <TableCell colSpan={3} align="center">
+                                            <TableCell colSpan={4} align="center">
                                                 Nenhum resultado encontrado
                                             </TableCell>
                                         </TableRow>
@@ -180,6 +182,10 @@ const AdoptionConsolidated = () => {
                                         <TableRow key={item.pessoaId}>
                                             <TableCell align="center">
                                                 {item.nomeSolicitante}
+                                            </TableCell>
+
+                                            <TableCell align="center">
+                                                {item.nomeCrianca}
                                             </TableCell>
 
                                             <TableCell align="center">
@@ -218,7 +224,7 @@ const AdoptionConsolidated = () => {
                     </TableContainer>
                 </ContentAdoptionRequests>
             </Box>
-        </ContainerAdoptionRequests>
+        </ContainerAdoptionConsolidated>
     );
 }
 

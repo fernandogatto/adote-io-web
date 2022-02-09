@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContainerAdoptionRequests = styled.div`
+export const ContainerAdoptionConsolidated = styled.div`
     width: 100%;
     height: 100vh;
     overflow: hidden;
