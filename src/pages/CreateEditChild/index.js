@@ -236,7 +236,7 @@ const CreateEditChild = ({ match }) => {
                     ? irmaos.map(item => item.id)
                     : [];
 
-                const data = {
+                let data = {
                     nome,
                     localizacao,
                     genero,
@@ -252,10 +252,17 @@ const CreateEditChild = ({ match }) => {
                     irmaosASeremCadastrados: _irmaos,
                 };
 
+                if (isUpdate) {
+                    data = {
+                        ...data,
+                        id,
+                    };
+                }
+
                 setIsSubmitting(true);
 
                 isUpdate
-                    ? await dispatch(ChildOperations.updateChildById(id, data))
+                    ? await dispatch(ChildOperations.updateChildById(data))
                     : await dispatch(ChildOperations.createChild(data));
 
                 setIsSubmitting(false);

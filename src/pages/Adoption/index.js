@@ -234,8 +234,8 @@ const Adoption = () => {
                                         </Button>
 
                                         {user.perfil === 'ADMINISTRADOR' && (
-                                            <Tooltip title="Ver solicitações de adoção" arrow>
-                                                <Box className="container-button">
+                                            <Box className="container-button">
+                                                <Tooltip title="Ver solicitações de adoção" arrow>
                                                     <IconButton
                                                         aria-label="Ver solicitações de adoção"
                                                         size="small"
@@ -244,8 +244,8 @@ const Adoption = () => {
                                                     >
                                                         <Visibility />
                                                     </IconButton>
-                                                </Box>
-                                            </Tooltip>
+                                                </Tooltip>
+                                            </Box>
                                         )}
 
                                         {user.perfil === 'PESSOA' && (

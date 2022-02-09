@@ -22,7 +22,7 @@ class ChildService {
     }
 
     updateChildById(id, data) {
-        return Api.put(`/criancas/${id}`, data);
+        return Api.put(`/criancas`, data);
     }
 
     deleteChildById(id) {

@@ -49,6 +49,13 @@ const Routes = () => {
                 />
 
                 <CustomRoute
+                    path="/adoption/edit/child/:id"
+                    component={Modules.CreateEditChild}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
                     path="/adoption/child/:id"
                     component={Modules.ViewChild}
                     exact

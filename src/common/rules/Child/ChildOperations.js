@@ -87,9 +87,9 @@ const ChildOperations = {
         }
     },
 
-    updateChildById: (id, data) => async () => {
+    updateChildById: (data) => async () => {
         try {
-            const response = await ChildService.updateChildById(id, data);
+            const response = await ChildService.updateChildById(data);
 
             Toast.showSuccess('Criança atualizada com sucesso');
 
