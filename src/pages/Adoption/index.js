@@ -119,6 +119,8 @@ const Adoption = () => {
             await dispatch(AdoptionOperations.createAdoptionRequest(child_id));
 
             setIsSubmitting(false);
+
+            getChildrenRequested();
         } catch (err) {
             console.log('handleSubmitAdoptionRequest', err);
 
