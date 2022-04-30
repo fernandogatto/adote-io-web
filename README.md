@@ -73,6 +73,10 @@ yarn start
 
 ## 💻 Project <a name="project"/>
 
+Project presentation:
+
+https://www.linkedin.com/posts/fernandogatto17_reactjs-react-redux-activity-6897546491699765248-hFmP?utm_source=linkedin_share&utm_medium=member_desktop_web
+
 To log in application:
 
 ```bash
